@@ -32,6 +32,3 @@ gen### Java template
 hs_err_pid*
 
 .gitignore
-.idea/
-ArtemBerdnik.iml
-src/
