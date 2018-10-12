@@ -66,5 +66,36 @@ public class CheckingEpamGitHubIOJdiPage {
                 "(about 20 internal and\n" +
                 "some external projects),\n" +
                 "wish to get more…", driver.findElement(By.xpath("(//div[@class=\"benefit\"]//span[@class=\"benefit-txt\"])[4]")).getText());
+
+        //7. Assert the text of the main header
+        assertEquals("EPAM FRAMEWORK WISHES…", driver.findElement(By.xpath("//h3[@name=\"main-title\"]")).getText());
+        assertEquals("LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET" +
+                " DOLORE MAGNA ALIQUA. UT ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCITATION ULLAMCO LABORIS NISI UT ALIQUIP EX EA COMMODO" +
+                " CONSEQUAT DUIS AUTE IRURE DOLOR IN REPREHENDERIT IN VOLUPTATE VELIT ESSE CILLUM DOLORE EU FUGIAT NULLA PARIATUR.", driver.findElement(By.xpath("//p[@name=\"jdi-text\"]")).getText());
+
+        //8. Assert that the iframe in the center of page is being displayed
+        assertTrue(driver.findElement(By.xpath("(//iframe[@id=\"iframe\"])[1]")).isDisplayed());
+
+        //Switching to the iframe
+        driver.switchTo().frame("iframe");
+
+        //9. Assert that EPAM logo is being displayed in the iframe
+        assertTrue(driver.findElement(By.xpath("//img[@src=\"images/Logo_Epam_Color.svg\"]")).isDisplayed());
+
+        //Switching to the original window back
+        driver.switchTo().defaultContent();
+
+        //10. Assert the text of the sub header
+        assertEquals("JDI GITHUB", driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getText());
+
+        //11. Assert the link of the sub header
+        assertEquals("https://github.com/epam/JDI", driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getAttribute("href"));
+        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).isEnabled());
+
+        //12. Assert that left pane is being displayed
+        assertTrue(driver.findElement(By.xpath("//div[@name=\"navigation-sidebar\"]")).isDisplayed());
+
+        //13. Assert that footer is being displayed
+        assertTrue(driver.findElement(By.xpath("//div[@class=\"footer-content overflow\"]")).isDisplayed());
     }
 }
