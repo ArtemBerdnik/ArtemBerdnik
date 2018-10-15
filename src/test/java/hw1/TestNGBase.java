@@ -11,7 +11,7 @@ public class TestNGBase {
 
     @BeforeClass
     public void beforeClass() {
-        //1. Open a verifying page
+        //1. Open test site by URL
         driver  = new ChromeDriver();
         driver.get("https://epam.github.io/JDI/");
         driver.manage().window().maximize();
