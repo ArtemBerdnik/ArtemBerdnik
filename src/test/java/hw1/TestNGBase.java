@@ -11,13 +11,14 @@ public class TestNGBase {
 
     @BeforeClass
     public void beforeClass() {
-        //Open a verifying page
+        //1. Open a verifying page
         driver  = new ChromeDriver();
         driver.get("https://epam.github.io/JDI/");
         driver.manage().window().maximize();
     }
 
     @AfterClass
+    //17. Close a browser
     public void afterClass() {
         driver.close();
     }
