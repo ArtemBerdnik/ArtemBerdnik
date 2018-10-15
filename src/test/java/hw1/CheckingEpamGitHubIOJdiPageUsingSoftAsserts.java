@@ -1,5 +1,6 @@
 package hw1;
 
+import Base.TestNGBase;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;

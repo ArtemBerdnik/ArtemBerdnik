@@ -1,5 +1,6 @@
 package hw1;
 
+import Base.TestNGBase;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
@@ -7,7 +8,6 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CheckingEpamGitHubIOJdiPage extends TestNGBase {
-
 
     @Test
     public void verifyingIndexHtmlPage() {
