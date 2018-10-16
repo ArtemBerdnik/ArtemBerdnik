@@ -13,7 +13,7 @@ public class TestBase {
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
-        setProperty("webdriver.chrome.driver", "C:\\Users\\khzc128\\IdeaProjects\\ArtemBerdnik\\src\\main\\resources\\chromedriver.exe");
+        //setProperty("webdriver.chrome.driver", "C:\\Users\\khzc128\\IdeaProjects\\ArtemBerdnik\\src\\main\\resources\\chromedriver.exe");
         time = currentTimeMillis();
     }
 
