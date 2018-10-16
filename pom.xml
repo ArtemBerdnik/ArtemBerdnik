@@ -6,7 +6,7 @@
 
 
     <properties>
-        <suiteXmlFile>testing.xml</suiteXmlFile>
+        <suiteXmlFile></suiteXmlFile>
     </properties>
 
     <groupId>automation</groupId>

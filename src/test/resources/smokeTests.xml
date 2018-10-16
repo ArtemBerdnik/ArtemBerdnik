@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Test Suite" verbose="1" parallel="methods" thread-count="3">
+    <test name="Smoke Tests">
+        <groups>
+            <run>
+                <include name="Smoke"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="hw2.ex2.CopyOfHW1ToRunAsSmokeTests"/>
+            <class name="hw2.ex2.CopyOfHW1ToRunAsRegressionAndSmokeTests"/>
+            <class name="hw2.ex2.CopyOfHW1ToRunAsRegressionAndSmokeTestsSimultaneously"/>
+        </classes>
+    </test>
+</suite>

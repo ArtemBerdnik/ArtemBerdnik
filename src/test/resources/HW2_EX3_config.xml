@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Test Suite" verbose="1">
+    <test name="verifyingIndexHtmlPage">
+        <groups>
+            <run>
+                <include name="TestGroup"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="hw2.ex3.CopyOfHW1ToPlayWithAnnotationsAndInstructions"/>
+        </classes>
+    </test>
+</suite>
