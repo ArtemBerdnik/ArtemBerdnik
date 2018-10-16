@@ -1,33 +1,14 @@
 package hw2.ex1;
 
 import Base.TestNGBase;
-import org.openqa.selenium.By;
-import org.testng.annotations.DataProvider;
+import DataProviders.DataProviders;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
 public class CheckingTextBelowPicturesOnIndexPage extends TestNGBase {
 
-    @DataProvider
-    public Object[][] textBelowPictures() {
-        return new Object[][]{
-                {
-                        1, driver.findElement(By.xpath("(//span[@class=\"benefit-txt\"])[1]")).getText()
-                },
-                {
-                        2, driver.findElement(By.xpath("(//span[@class=\"benefit-txt\"])[2]")).getText()
-                },
-                {
-                        3, driver.findElement(By.xpath("(//span[@class=\"benefit-txt\"])[3]")).getText()
-                },
-                {
-                        4, driver.findElement(By.xpath("(//span[@class=\"benefit-txt\"])[4]")).getText()
-                }
-        };
-    }
-
-    @Test(dataProvider = "textBelowPictures")
+    @Test(dataProvider = "dataProviderToGetTextBelowPicturesOnIndexPage", dataProviderClass = DataProviders.class)
     public void verifyTextBelowPictures(int textNumber, String text) {
         switch (textNumber) {
             case 1:
