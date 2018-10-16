@@ -1,13 +1,13 @@
 package hw2.ex3;
 
-import Base.TestNGBase;
+import Base.TestNGBaseHW2;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class CopyOfHW1ToPlayWithAnnotationsAndInstructions extends TestNGBase {
+public class CopyOfHW1ToPlayWithAnnotationsAndInstructions extends TestNGBaseHW2 {
 
     @Test(groups = "TestGroup")
     public void verifyingIndexHtmlPage() {

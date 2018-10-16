@@ -1,13 +1,13 @@
 package hw1;
 
-import Base.TestNGBase;
+import Base.TestNGBaseHW2;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class CheckingEpamGitHubIOJdiPage extends TestNGBase {
+public class CheckingEpamGitHubIOJdiPage extends TestNGBaseHW2 {
 
     @Test
     public void verifyingIndexHtmlPage() {

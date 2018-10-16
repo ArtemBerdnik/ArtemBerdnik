@@ -1,13 +1,13 @@
 package hw1;
 
-import Base.TestNGBase;
+import Base.TestNGBaseHW2;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static org.testng.Assert.assertTrue;
 
-public class CheckingEpamGitHubIOJdiPageUsingSoftAsserts extends TestNGBase {
+public class CheckingEpamGitHubIOJdiPageUsingSoftAsserts extends TestNGBaseHW2 {
 
     private SoftAssert softAssert = new SoftAssert();
 
