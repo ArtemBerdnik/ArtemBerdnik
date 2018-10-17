@@ -1,7 +1,7 @@
 package lesson2;
 
-import Base.TestBase;
-import DataProviders.DataProviders;
+import base.TestBase;
+import dataProviders.DataProviders;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;

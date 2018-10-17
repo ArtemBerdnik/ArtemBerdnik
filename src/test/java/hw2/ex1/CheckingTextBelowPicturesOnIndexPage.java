@@ -1,7 +1,7 @@
 package hw2.ex1;
 
-import Base.TestNGBase;
-import DataProviders.DataProviders;
+import base.TestNGBase;
+import dataProviders.DataProviders;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;

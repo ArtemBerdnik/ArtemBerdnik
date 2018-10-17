@@ -1,6 +1,6 @@
 package lesson2;
 
-import Base.TestBase;
+import base.TestBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;

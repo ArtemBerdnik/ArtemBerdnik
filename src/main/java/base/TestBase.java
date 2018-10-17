@@ -1,10 +1,9 @@
-package Base;
+package base;
 
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
 import static java.lang.System.currentTimeMillis;
-import static java.lang.System.setProperty;
 
 
 public class TestBase {

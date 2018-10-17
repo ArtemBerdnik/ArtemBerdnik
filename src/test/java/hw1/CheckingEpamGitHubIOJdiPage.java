@@ -1,6 +1,6 @@
 package hw1;
 
-import Base.TestNGBaseHW2;
+import base.TestNGBaseHW2;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 

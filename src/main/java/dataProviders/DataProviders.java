@@ -1,6 +1,6 @@
-package DataProviders;
+package dataProviders;
 
-import Base.TestNGBase;
+import base.TestNGBase;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 
