@@ -19,7 +19,7 @@ public class HomePageSelenide {
     @FindBy(css = "[type = 'submit']")
     private SelenideElement submit;
 
-    //=======================================================
+    //================================================
     public void login(String name, String passwd) {
         profileButton.click();
         login.sendKeys(name);
