@@ -3,6 +3,7 @@ package hw3.ex1;
 import base.TestNGBaseHW3;
 import org.testng.annotations.Test;
 
+import static enums.IFrames.IFRAME;
 import static enums.Users.PITER_CHAILOVSKII;
 
 public class IndexPageContentTest extends TestNGBaseHW3 {
@@ -22,22 +23,13 @@ public class IndexPageContentTest extends TestNGBaseHW3 {
         indexPage.checkTitle();
 
         //6. Assert buttons and dropdowns in the page header
-        indexPage.checkTextForHomeButtonInPageHeader();
-        indexPage.checkTextForContactButtonInPageHeader();
-        indexPage.checkTextForServiceDropdownInPageHeader();
-        indexPage.checkTextForMetalsAndColorsButtonInPageHeader();
+        indexPage.checkTextForControlsInHeader();
 
         //7. Assert icons are being displayed in the page
-        indexPage.checkPracticeIconIsDisplayed();
-        indexPage.checkCustomIconIsDisplayed();
-        indexPage.checkMultiplatformIconIsDisplayed();
-        indexPage.checkBaseIconIsDisplayed();
+        indexPage.checkIconsAreDisplayed();
 
         //8. Assert text is being displayed below icons
-        indexPage.checkTextBelowPracticeIcon();
-        indexPage.checkTextBelowCustomIcon();
-        indexPage.checkTextBelowMultiplatformIcon();
-        indexPage.checkTextBelowBaseIcon();
+        indexPage.checkTextBelowIcons();
 
         //9. Assert the text of the main header
         indexPage.checkTitleInCenterOfPage();
@@ -47,7 +39,7 @@ public class IndexPageContentTest extends TestNGBaseHW3 {
         indexPage.checkIframeIsDisplayed();
 
         //11. Switching to the iframe and verifying that the EPAM logo is being displayed in the iframe
-        indexPage.switchToIframe("iframe");
+        indexPage.switchToIframe(IFRAME.frameName);
         indexPage.checkEpamLogoIsDisplayed();
 
         //12. Switching to the original window back

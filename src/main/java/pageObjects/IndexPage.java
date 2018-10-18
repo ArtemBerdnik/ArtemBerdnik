@@ -107,54 +107,27 @@ public class IndexPage extends TestNGBaseHW3 {
         assertEquals(userName.getText(), "PITER CHAILOVSKII");
     }
 
-    public void checkTextForHomeButtonInPageHeader() {
+    public void checkTextForControlsInHeader() {
         assertEquals(homeButtonInPageHeader.getText(), "HOME");
-    }
-
-    public void checkTextForContactButtonInPageHeader() {
         assertEquals(contactButtonInPageHeader.getText(), "CONTACT FORM");
-    }
-
-    public void checkTextForServiceDropdownInPageHeader() {
         assertEquals(serviceDropdownInPageHeader.getText(), "SERVICE");
-    }
-
-    public void checkTextForMetalsAndColorsButtonInPageHeader() {
         assertEquals(metalsAndColorsButtonInPageHeader.getText(), "METALS & COLORS");
     }
 
-    public void checkPracticeIconIsDisplayed() {
+    public void checkIconsAreDisplayed() {
         assertTrue(practiceIcon.isDisplayed());
-    }
-
-    public void checkCustomIconIsDisplayed() {
         assertTrue(customIcon.isDisplayed());
-    }
-
-    public void checkMultiplatformIconIsDisplayed() {
         assertTrue(multiplatformIcon.isDisplayed());
-    }
-
-    public void checkBaseIconIsDisplayed() {
         assertTrue(baseIcon.isDisplayed());
     }
 
-    public void checkTextBelowPracticeIcon() {
+    public void checkTextBelowIcons() {
         assertEquals(textBelowPracticeIcon.getText(), "To include good practices\n" +
                 "and ideas from successful\n" +
                 "EPAM project");
-    }
-
-    public void checkTextBelowCustomIcon() {
         assertEquals(textBelowCustomIcon.getText(), "To be flexible and\n" +
                 "customizable");
-    }
-
-    public void checkTextBelowMultiplatformIcon() {
         assertEquals(textBelowMultiplatformIcon.getText(), "To be multiplatform");
-    }
-
-    public void checkTextBelowBaseIcon() {
         assertEquals(textBelowBaseIcon.getText(), "Already have good base\n" +
                 "(about 20 internal and\n" +
                 "some external projects),\n" +
