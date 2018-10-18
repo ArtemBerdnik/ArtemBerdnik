@@ -3,6 +3,8 @@ package hw3.ex1;
 import base.TestNGBaseHW3;
 import org.testng.annotations.Test;
 
+import static enums.Users.PITER_CHAILOVSKII;
+
 public class IndexPageContentTest extends TestNGBaseHW3 {
 
     @Test
@@ -11,7 +13,7 @@ public class IndexPageContentTest extends TestNGBaseHW3 {
         indexPage.checkTitle();
 
         //3. Perform login
-        indexPage.login("epam", "1234");
+        indexPage.login(PITER_CHAILOVSKII.login, PITER_CHAILOVSKII.password);
 
         //4. Assert displayed username
         indexPage.checkDisplayedUserName();

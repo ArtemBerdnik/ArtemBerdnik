@@ -81,7 +81,7 @@ public class IndexPage extends TestNGBaseHW3 {
     @FindBy(css = "[class=\"footer-content overflow\"]")
     private WebElement footer;
 
-    //===============================actions========================================
+    //===============================methods========================================
 
     public void login(String name, String pass) {
         userIcon.click();
