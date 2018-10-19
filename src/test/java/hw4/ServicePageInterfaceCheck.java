@@ -1,13 +1,12 @@
 package hw4;
 
 import base.TestNGBaseHW4;
-import enums.Checkboxes;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.annotations.Test;
 
-import static enums.Checkboxes.FIRE;
 import static enums.Checkboxes.WATER;
 import static enums.Checkboxes.WIND;
+import static enums.Colors.YELLOW;
+import static enums.Radiobuttons.SELEN;
 import static enums.Users.PITER_CHAILOVSKII;
 
 
@@ -46,6 +45,24 @@ public class ServicePageInterfaceCheck extends TestNGBaseHW4 {
         indexPage.selectCheckboxes(WATER, WIND);
 
         //12. Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        indexPage.checkInfoInLogAboutSelectedCheckbox(WATER, FIRE);
+        indexPage.checkInfoInLogAboutSelectedCheckbox(WATER, WIND);
+
+        //13. Select radio (Selen)
+        indexPage.selectRadiobutton(SELEN);
+
+        //14. Assert that for radiobutton there is a log row and value is corresponded to the status of radiobutton. 
+        indexPage.checkInfoInLogAboutSelectedRadiobutton(SELEN);
+
+        //15. Select in dropdown (Yellow)
+        indexPage.selectColorInDropdown(YELLOW);
+
+        //16. Assert that for dropdown there is a log row and value is corresponded to the selected value. 
+        indexPage.checkInfoInLogAboutSelectedColor(YELLOW);
+
+        //17. Unselect and assert checkboxes
+        indexPage.selectCheckboxes(WATER, WIND);
+
+        //18. Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
+        indexPage.checkInfoInLogAboutSelectedCheckbox(WATER, WIND);
     }
 }

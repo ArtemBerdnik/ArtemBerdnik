@@ -2,18 +2,18 @@ package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
 import enums.Checkboxes;
+import enums.Colors;
+import enums.Radiobuttons;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Condition.selected;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static com.codeborne.selenide.WebDriverRunner.source;
 import static org.testng.Assert.assertEquals;
 
 public class IndexPageSelenide {
@@ -75,8 +75,16 @@ public class IndexPageSelenide {
     @FindBy(css = "[class='label-checkbox'] > input")
     private List<SelenideElement> statusOfcheckboxes;
 
-    //===============================methods========================================
+    @FindBy(css = "[type = 'radio']")
+    private List<SelenideElement> statusOfRadiobuttons;
 
+    @FindBy(css = "select[class='uui-form-element'] option")
+    private List<SelenideElement> availableColors;
+
+    @FindBy(css = "[class='panel-body-list logs'] li")
+    private List<SelenideElement> logs;
+
+    //===============================methods========================================
     public void login(String name, String pass) {
         userIcon.click();
         login.sendKeys(name);
@@ -87,6 +95,23 @@ public class IndexPageSelenide {
     public void openDifferentElementsPage() {
         ServiceDropdownInHeader.click();
         $$(subcategoriesUnderServiceDropdownInHeader).get(6).click();
+    }
+
+    public void selectCheckboxes(Checkboxes... checkboxes) {
+        for (Checkboxes checkbox : checkboxes) {
+            $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+//            $$(statusOfcheckboxes).get(checkbox.checkboxPosition).shouldBe(selected);
+        }
+    }
+
+    public void selectRadiobutton(Radiobuttons radiobutton) {
+        $$(radiobuttonsOnDifferentElementsPage).findBy(text(radiobutton.radiobuttonValue)).click();
+        $$(statusOfRadiobuttons).get(radiobutton.radiobuttonPosition).shouldBe(selected);
+    }
+
+    public void selectColorInDropdown(Colors color) {
+        dropdownWithColors.click();
+        $$(availableColors).findBy(text(color.colorValue)).click();
     }
 
     //===============================checks==========================================
@@ -130,23 +155,21 @@ public class IndexPageSelenide {
         $(leftSection).isDisplayed();
     }
 
-    public void selectCheckboxes(Checkboxes... checkboxes) {
-        for(Checkboxes checkbox : checkboxes) {
-            $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
-            $$(statusOfcheckboxes).get(checkbox.checkboxPosition).shouldBe(selected);
+    public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
+        for (Checkboxes checkbox : checkboxes) {
+            if (!$$(statusOfcheckboxes).get(checkbox.checkboxPosition).isSelected()) {
+                $$(logs).findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to false"));
+            } else {
+                $$(logs).findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to true"));
+            }
         }
     }
 
-    public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
-        for(Checkboxes checkbox : checkboxes){
-            if(!$$(statusOfcheckboxes).get(checkbox.checkboxPosition).isSelected()){
-                $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
-                $(firstRowInLog).shouldHave(text(checkbox.checkboxValue + ": condition changed to true"));
-            }
-            else{
-                $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
-                $(firstRowInLog).shouldHave(text(checkbox.checkboxValue + ": condition changed to false"));
-            }
-        }
+    public void checkInfoInLogAboutSelectedRadiobutton(Radiobuttons radiobutton) {
+        $(firstRowInLog).shouldHave(text("metal: value changed to " + radiobutton.radiobuttonValue));
+    }
+
+    public void checkInfoInLogAboutSelectedColor(Colors color) {
+        $(firstRowInLog).shouldHave(text("Colors: value changed to " + color.colorValue));
     }
 }
