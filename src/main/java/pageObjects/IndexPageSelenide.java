@@ -1,15 +1,19 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import enums.Checkboxes;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.selected;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static com.codeborne.selenide.WebDriverRunner.source;
 import static org.testng.Assert.assertEquals;
 
 public class IndexPageSelenide {
@@ -44,6 +48,33 @@ public class IndexPageSelenide {
     @FindBy(css = "[class=\"sub\"] span")
     private List<SelenideElement> subcategoriesUnderServiceDropdownInLeftPanel;
 
+    @FindBy(css = "[class='label-checkbox']")
+    private List<SelenideElement> checkboxesOnDifferentElementsPage;
+
+    @FindBy(css = "[class='label-radio']")
+    private List<SelenideElement> radiobuttonsOnDifferentElementsPage;
+
+    @FindBy(css = "select[class='uui-form-element']")
+    private SelenideElement dropdownWithColors;
+
+    @FindBy(name = "Default Button")
+    private SelenideElement defaultButton;
+
+    @FindBy(css = "input[type='button']")
+    private SelenideElement button;
+
+    @FindBy(name = "navigation-sidebar")
+    private SelenideElement leftSection;
+
+    @FindBy(name = "log-sidebar")
+    private SelenideElement rightSection;
+
+    @FindBy(css = "[class='panel-body-list logs'] > li:first-child")
+    private SelenideElement firstRowInLog;
+
+    @FindBy(css = "[class='label-checkbox'] > input")
+    private List<SelenideElement> statusOfcheckboxes;
+
     //===============================methods========================================
 
     public void login(String name, String pass) {
@@ -51,6 +82,11 @@ public class IndexPageSelenide {
         login.sendKeys(name);
         password.sendKeys(pass);
         submitButton.click();
+    }
+
+    public void openDifferentElementsPage() {
+        ServiceDropdownInHeader.click();
+        $$(subcategoriesUnderServiceDropdownInHeader).get(6).click();
     }
 
     //===============================checks==========================================
@@ -72,5 +108,45 @@ public class IndexPageSelenide {
         ServiceDropdownInLeftPanel.click();
         $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
         $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+    }
+
+    public void checkControlsOnDifferentElementsPage() {
+        $$(checkboxesOnDifferentElementsPage).shouldHaveSize(4);
+        $$(checkboxesOnDifferentElementsPage).shouldHave(texts("Water", "Earth", "Wind", "Fire"));
+
+        $$(radiobuttonsOnDifferentElementsPage).shouldHaveSize(4);
+        $$(radiobuttonsOnDifferentElementsPage).shouldHave(texts("Gold", "Silver", "Bronze", "Selen"));
+
+        $(dropdownWithColors).shouldBe(enabled);
+        $(defaultButton).isDisplayed();
+        $(button).isDisplayed();
+    }
+
+    public void checkRightSectionIsDisplayed() {
+        $(rightSection).isDisplayed();
+    }
+
+    public void checkLeftSectionIsDisplayed() {
+        $(leftSection).isDisplayed();
+    }
+
+    public void selectCheckboxes(Checkboxes... checkboxes) {
+        for(Checkboxes checkbox : checkboxes) {
+            $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+            $$(statusOfcheckboxes).get(checkbox.checkboxPosition).shouldBe(selected);
+        }
+    }
+
+    public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
+        for(Checkboxes checkbox : checkboxes){
+            if(!$$(statusOfcheckboxes).get(checkbox.checkboxPosition).isSelected()){
+                $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+                $(firstRowInLog).shouldHave(text(checkbox.checkboxValue + ": condition changed to true"));
+            }
+            else{
+                $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+                $(firstRowInLog).shouldHave(text(checkbox.checkboxValue + ": condition changed to false"));
+            }
+        }
     }
 }
