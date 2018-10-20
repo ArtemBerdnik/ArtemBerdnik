@@ -84,6 +84,9 @@ public class IndexPageSelenide {
     @FindBy(css = "[class='panel-body-list logs'] li")
     private List<SelenideElement> logs;
 
+    @FindBy(css = "[class='ui-slider-handle ui-state-default ui-corner-all']:first-child")
+    private SelenideElement leftSliderInRange2;
+
     //===============================methods========================================
     public void login(String name, String pass) {
         userIcon.click();
@@ -112,6 +115,11 @@ public class IndexPageSelenide {
     public void selectColorInDropdown(Colors color) {
         dropdownWithColors.click();
         $$(availableColors).findBy(text(color.colorValue)).click();
+    }
+
+    public void openDatesPage() {
+        ServiceDropdownInHeader.click();
+        $$(subcategoriesUnderServiceDropdownInHeader).get(1).click();
     }
 
     //===============================checks==========================================

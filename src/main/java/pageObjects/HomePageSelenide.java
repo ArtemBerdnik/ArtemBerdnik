@@ -31,6 +31,5 @@ public class HomePageSelenide {
         open("https://epam.github.io/JDI/index.html");
     }
 
-
     //=======================================================
 }
