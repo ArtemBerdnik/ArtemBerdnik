@@ -46,6 +46,6 @@ public class DataPageSliderCheck extends TestNGBaseHW4 {
         //13. Assert that for "From" and "To" sliders there are logs rows with corresponding values
         datesPageSelenide.checkInfoInLogAboutSliders(THIRTY, SEVENTY);
 
-        // FIXME: 21.10.2018 : the bug is that when right and left slider controls are in the same position, moving left slider will always logged as value for right one.
+        // FIXME: 21.10.2018 : the bug in the latest step is that when right and left slider controls are in the same position, moving left slider will always logged as value for right one.
     }
 }
