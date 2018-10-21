@@ -33,36 +33,36 @@ public class ServicePageInterfaceCheck extends TestNGBaseHW4 {
         indexPage.openDifferentElementsPage();
 
         //8. Check interface on Different elements page, it contains all needed elements (4 checkboxes, 4 radios, 1 dropdown, 2 buttons)
-        indexPage.checkControlsOnDifferentElementsPage();
+        differentElementsSelenide.checkControlsOnDifferentElementsPage();
 
         //9. Assert that there is Right Section
-        indexPage.checkRightSectionIsDisplayed();
+        differentElementsSelenide.checkRightSectionIsDisplayed();
 
         //10. Assert that there is Left Section
-        indexPage.checkLeftSectionIsDisplayed();
+        differentElementsSelenide.checkLeftSectionIsDisplayed();
 
         //11. Select checkboxes (Water, Wind)
-        indexPage.selectCheckboxes(WATER, WIND);
+        differentElementsSelenide.selectCheckboxes(WATER, WIND);
 
         //12. Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        indexPage.checkInfoInLogAboutSelectedCheckbox(WATER, WIND);
+        differentElementsSelenide.checkInfoInLogAboutSelectedCheckbox(WATER, WIND);
 
         //13. Select radio (Selen)
-        indexPage.selectRadiobutton(SELEN);
+        differentElementsSelenide.selectRadiobutton(SELEN);
 
         //14. Assert that for radiobutton there is a log row and value is corresponded to the status of radiobutton. 
-        indexPage.checkInfoInLogAboutSelectedRadiobutton(SELEN);
+        differentElementsSelenide.checkInfoInLogAboutSelectedRadiobutton(SELEN);
 
         //15. Select in dropdown (Yellow)
-        indexPage.selectColorInDropdown(YELLOW);
+        differentElementsSelenide.selectColorInDropdown(YELLOW);
 
         //16. Assert that for dropdown there is a log row and value is corresponded to the selected value. 
-        indexPage.checkInfoInLogAboutSelectedColor(YELLOW);
+        differentElementsSelenide.checkInfoInLogAboutSelectedColor(YELLOW);
 
         //17. Unselect and assert checkboxes
-        indexPage.selectCheckboxes(WATER, WIND);
+        differentElementsSelenide.selectCheckboxes(WATER, WIND);
 
         //18. Assert that for each checkbox there is an individual log row and value is corresponded to the status of checkbox. 
-        indexPage.checkInfoInLogAboutSelectedCheckbox(WATER, WIND);
+        differentElementsSelenide.checkInfoInLogAboutSelectedCheckbox(WATER, WIND);
     }
 }
