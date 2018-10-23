@@ -1,12 +1,35 @@
 package hw4;
 
 import base.TestNGBaseHW4;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageObjects.DatesPageSelenide;
+import pageObjects.IndexPageSelenide;
 
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static enums.CoordinatesForRange2Slider.*;
+import static enums.Urls.INDEX_PAGE;
 import static enums.Users.PITER_CHAILOVSKII;
 
 public class DataPageSliderCheck extends TestNGBaseHW4 {
+
+    private IndexPageSelenide indexPage;
+    private DatesPageSelenide datesPageSelenide;
+
+    @BeforeClass
+    public void beforeClass() {
+        indexPage = page(IndexPageSelenide.class);
+        datesPageSelenide = page(DatesPageSelenide.class);
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        open(INDEX_PAGE.getUrl);
+        getWebDriver().manage().window().maximize();
+    }
 
     @Test
     public void checkSlidersOnDataPage() {

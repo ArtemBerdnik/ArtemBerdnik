@@ -26,16 +26,16 @@ public class DifferentElementsSelenide {
     @FindBy(css = "select[class='uui-form-element']")
     private SelenideElement dropdownWithColors;
 
-    @FindBy(name = "Default Button")
+    @FindBy(css = "[name = 'Default Button']")
     private SelenideElement defaultButton;
 
     @FindBy(css = "input[type='button']")
     private SelenideElement button;
 
-    @FindBy(name = "navigation-sidebar")
+    @FindBy(css = "[name = 'navigation-sidebar']")
     private SelenideElement leftSection;
 
-    @FindBy(name = "log-sidebar")
+    @FindBy(css = "[name = 'log-sidebar']")
     private SelenideElement rightSection;
 
     @FindBy(css = "[class='panel-body-list logs'] > li:first-child")
@@ -58,7 +58,6 @@ public class DifferentElementsSelenide {
     public void selectCheckboxes(Checkboxes... checkboxes) {
         for (Checkboxes checkbox : checkboxes) {
             $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
-//            $$(statusOfcheckboxes).get(checkbox.checkboxPosition).shouldBe(selected);
         }
     }
 
@@ -81,9 +80,9 @@ public class DifferentElementsSelenide {
         $$(radiobuttonsOnDifferentElementsPage).shouldHaveSize(4);
         $$(radiobuttonsOnDifferentElementsPage).shouldHave(texts("Gold", "Silver", "Bronze", "Selen"));
 
-        $(dropdownWithColors).shouldBe(enabled);
-        $(defaultButton).isDisplayed();
-        $(button).isDisplayed();
+        dropdownWithColors.shouldBe(enabled);
+        defaultButton.isDisplayed();
+        button.isDisplayed();
     }
 
     public void checkRightSectionIsDisplayed() {
@@ -105,10 +104,10 @@ public class DifferentElementsSelenide {
     }
 
     public void checkInfoInLogAboutSelectedRadiobutton(Radiobuttons radiobutton) {
-        $(firstRowInLog).shouldHave(text("metal: value changed to " + radiobutton.radiobuttonValue));
+        firstRowInLog.shouldHave(text("metal: value changed to " + radiobutton.radiobuttonValue));
     }
 
     public void checkInfoInLogAboutSelectedColor(Colors color) {
-        $(firstRowInLog).shouldHave(text("Colors: value changed to " + color.colorValue));
+        firstRowInLog.shouldHave(text("Colors: value changed to " + color.colorValue));
     }
 }

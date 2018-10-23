@@ -1,6 +1,7 @@
 package pageObjects;
 
 import base.TestNGBaseHW3;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -9,13 +10,13 @@ import static org.testng.Assert.assertTrue;
 
 public class IndexPage extends TestNGBaseHW3 {
 
-    @FindBy(id = "user-icon")
+    @FindBy(css = "#user-icon")
     private WebElement userIcon;
 
-    @FindBy(id = "Name")
+    @FindBy(css = "#Name")
     private WebElement login;
 
-    @FindBy(id = "Password")
+    @FindBy(css = "#Password")
     private WebElement password;
 
     @FindBy(css = "[type = 'submit']")
@@ -48,34 +49,34 @@ public class IndexPage extends TestNGBaseHW3 {
     @FindBy(css = "[class=\"icons-benefit icon-base\"]")
     private WebElement baseIcon;
 
-    @FindBy(xpath = "//*[contains(text(), \"good practices\")]")
+    @FindBy(xpath = "//*[contains(text(), 'good practices')]")
     private WebElement textBelowPracticeIcon;
 
-    @FindBy(xpath = "//*[contains(text(), \"To be flexible\")]")
+    @FindBy(xpath = "//*[contains(text(), 'To be flexible')]")
     private WebElement textBelowCustomIcon;
 
-    @FindBy(xpath = "//*[contains(text(), \"multiplatform\")]")
+    @FindBy(xpath = "//*[contains(text(), 'multiplatform')]")
     private WebElement textBelowMultiplatformIcon;
 
-    @FindBy(xpath = "//*[contains(text(), \"good base\")]")
+    @FindBy(xpath = "//*[contains(text(), 'good base')]")
     private WebElement textBelowBaseIcon;
 
-    @FindBy(name = "main-title")
+    @FindBy(css = "[name = \"main-title\"]")
     private WebElement titleInCenterOfPage;
 
-    @FindBy(name = "jdi-text")
+    @FindBy(css = "[name = \"jdi-text\"]")
     private WebElement jdiTextInCenterOfPage;
 
-    @FindBy(id = "iframe")
+    @FindBy(css = "#iframe")
     private WebElement iFrameInCenterOfPage;
 
-    @FindBy(id = "epam_logo")
+    @FindBy(css = "#epam_logo")
     private WebElement epamLogo;
 
     @FindBy(css = "[class=\"text-center\"] > a")
     private WebElement jdiSubHeader;
 
-    @FindBy(name = "navigation-sidebar")
+    @FindBy(css = "[name = \"navigation-sidebar\"]")
     private WebElement leftPanel;
 
     @FindBy(css = "[class=\"footer-content overflow\"]")
@@ -90,16 +91,16 @@ public class IndexPage extends TestNGBaseHW3 {
         submitButton.click();
     }
 
-    public void switchToIframe(String iFrameName) {
+    public void switchToIframe(WebDriver driver, String iFrameName) {
         driver.switchTo().frame(iFrameName);
     }
 
-    public void switchToOriginalWindow() {
+    public void switchToOriginalWindow(WebDriver driver) {
         driver.switchTo().defaultContent();
     }
 
     //===============================checks==========================================
-    public void checkTitle() {
+    public void checkTitle(WebDriver driver) {
         assertEquals(driver.getTitle(), "Home Page");
     }
 
@@ -158,6 +159,7 @@ public class IndexPage extends TestNGBaseHW3 {
 
     public void checkLinkOfSubheader() {
         assertEquals(jdiSubHeader.getAttribute("href"), "https://github.com/epam/JDI");
+        assertTrue(jdiSubHeader.isDisplayed());
         assertTrue(jdiSubHeader.isEnabled());
     }
 

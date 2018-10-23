@@ -13,10 +13,10 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class DatesPageSelenide {
 
-    @FindBy(xpath = "//div[@class=\"ui-slider-range ui-widget-header ui-corner-all\"]/preceding-sibling::a")
+    @FindBy(xpath = "//div[@class='ui-slider-range ui-widget-header ui-corner-all']/preceding-sibling::a")
     private SelenideElement leftSliderInRange2;
 
-    @FindBy(css = "div[class*=\"ui-slider-range\"] + a")
+    @FindBy(css = "div[class*='ui-slider-range'] + a")
     private SelenideElement rightSliderInRange2;
 
     @FindBy(css = "[class='panel-body-list logs'] li")

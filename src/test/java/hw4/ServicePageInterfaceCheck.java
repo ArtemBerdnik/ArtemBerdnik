@@ -1,16 +1,40 @@
 package hw4;
 
 import base.TestNGBaseHW4;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageObjects.DatesPageSelenide;
+import pageObjects.DifferentElementsSelenide;
+import pageObjects.IndexPageSelenide;
 
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static enums.Checkboxes.WATER;
 import static enums.Checkboxes.WIND;
 import static enums.Colors.YELLOW;
 import static enums.Radiobuttons.SELEN;
+import static enums.Urls.INDEX_PAGE;
 import static enums.Users.PITER_CHAILOVSKII;
 
 
 public class ServicePageInterfaceCheck extends TestNGBaseHW4 {
+
+    private IndexPageSelenide indexPage;
+    private DifferentElementsSelenide differentElementsSelenide;
+
+    @BeforeClass
+    public void beforeClass() {
+        indexPage = page(IndexPageSelenide.class);
+        differentElementsSelenide = page(DifferentElementsSelenide.class);
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        open(INDEX_PAGE.getUrl);
+        getWebDriver().manage().window().maximize();
+    }
 
     @Test
     public void checkDifferentElementsPage() {

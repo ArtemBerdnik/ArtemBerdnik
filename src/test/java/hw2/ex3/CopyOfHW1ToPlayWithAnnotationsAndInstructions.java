@@ -2,12 +2,34 @@ package hw2.ex3;
 
 import base.TestNGBaseHW2;
 import org.openqa.selenium.By;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
+import static java.lang.System.setProperty;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class CopyOfHW1ToPlayWithAnnotationsAndInstructions extends TestNGBaseHW2 {
+
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass() {
+        setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod() {
+        driver.manage().window().maximize();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod() {
+        System.out.println(driver.getTitle());
+    }
+
+    @AfterClass(alwaysRun = true)
+    public void afterClass() {
+        System.out.println(System.currentTimeMillis());
+    }
+
 
     @Test(groups = "TestGroup")
     public void verifyingIndexHtmlPage() {
