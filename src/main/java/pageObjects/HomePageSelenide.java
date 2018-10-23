@@ -27,7 +27,7 @@ public class HomePageSelenide {
         submit.click();
     }
 
-    public void openPage(){
+    public void openPage() {
         open("https://epam.github.io/JDI/index.html");
     }
 
