@@ -8,11 +8,13 @@ import static java.lang.System.setProperty;
 
 public class TestNGBaseHW2 {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
         driver = new ChromeDriver();
+        driver.get("https://epam.github.io/JDI/");
+        driver.manage().window().maximize();
     }
 
     @AfterSuite(alwaysRun = true)

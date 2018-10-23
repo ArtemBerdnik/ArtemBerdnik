@@ -1,6 +1,6 @@
 package hw2.ex1;
 
-import base.TestNGBase;
+import base.TestNGBaseHW2;
 import dataProviders.DataProviders;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class CheckingTextBelowPicturesOnIndexPage extends TestNGBase {
+public class CheckingTextBelowPicturesOnIndexPage extends TestNGBaseHW2 {
 
     @Test(dataProvider = "dataProviderToGetTextBelowPicturesOnIndexPage", dataProviderClass = DataProviders.class)
     public void verifyTextBelowPictures(String text, int testNumber) {
