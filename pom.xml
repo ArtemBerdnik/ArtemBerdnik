@@ -10,7 +10,7 @@
 
     <properties>
         <suiteXmlFile>testing.xml</suiteXmlFile>
-        <allure.version>2.6.0</allure.version>
+        <allure.version>2.7.0</allure.version>
         <aspectj.version>1.8.12</aspectj.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
