@@ -1,6 +1,7 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,12 +10,15 @@ import enums.Colors;
 import enums.Radiobuttons;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
@@ -34,6 +38,9 @@ public class DifferentElementsSelenideCucumber {
 
     @FindBy(css = "input[type='button']")
     private SelenideElement button;
+
+    @FindBy(css = "[class='uui-button']")
+    private List<SelenideElement> buttonsOnDifferentElementsPage;
 
     @FindBy(css = "[name = 'navigation-sidebar']")
     private SelenideElement leftSection;
@@ -56,25 +63,36 @@ public class DifferentElementsSelenideCucumber {
     @FindBy(css = "[class='panel-body-list logs'] li")
     private List<SelenideElement> logs;
 
+    public DifferentElementsSelenideCucumber() {
+        page(this);
+    }
+
     //===============================methods========================================
 
-    @When("I (.+) checkboxes")
-    public void selectCheckboxes(Checkboxes... checkboxes) {
-        for (Checkboxes checkbox : checkboxes) {
-            $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+    @When("^I select checkboxes \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void selectCheckboxes(String checkbox1, String checkbox2) {
+        $$(checkboxesOnDifferentElementsPage).findBy(text(Checkboxes.valueOf(checkbox1).checkboxValue)).click();
+        $$(checkboxesOnDifferentElementsPage).findBy(text(Checkboxes.valueOf(checkbox2).checkboxValue)).click();
+    }
+
+    @When("^I unselected checkboxes \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void unselectCheckboxes(String checkbox1, String checkbox2) {
+        List<String> checkboxes = Arrays.asList(checkbox1,checkbox2);
+        for (String checkbox : checkboxes) {
+            $$(checkboxesOnDifferentElementsPage).findBy(text(Checkboxes.valueOf(checkbox).checkboxValue)).click();
         }
     }
 
-    @When("I select radiobutton (.+)")
-    public void selectRadiobutton(Radiobuttons radiobutton) {
-        $$(radiobuttonsOnDifferentElementsPage).findBy(text(radiobutton.radiobuttonValue)).click();
-        $$(statusOfRadiobuttons).get(radiobutton.radiobuttonPosition).shouldBe(selected);
+    @When("I select radiobutton \"([^\"]*)\"")
+    public void selectRadiobutton(String radiobutton) {
+        $$(radiobuttonsOnDifferentElementsPage).findBy(text(Radiobuttons.valueOf(radiobutton).radiobuttonValue)).click();
+        $$(statusOfRadiobuttons).get(Radiobuttons.valueOf(radiobutton).radiobuttonPosition).shouldBe(selected);
     }
 
-    @When("I select (.+) in dropdown")
-    public void selectColorInDropdown(Colors color) {
+    @When("I select \"([^\"]*)\" in dropdown")
+    public void selectColorInDropdown(String color) {
         dropdownWithColors.click();
-        $$(availableColors).findBy(text(color.colorValue)).click();
+        $$(availableColors).findBy(text(Colors.valueOf(color).colorValue)).click();
     }
 
     //===============================checks==========================================
@@ -84,16 +102,17 @@ public class DifferentElementsSelenideCucumber {
         assertEquals(getWebDriver().getTitle(), ("Different Elements"));
     }
 
-    @When("I check interface on 'Different elements page'")
-    @Then("The following elements should be displayed on 'Different elements page':")
-    public void checkControlsOnDifferentElementsPage() {
-        $$(checkboxesOnDifferentElementsPage).shouldHaveSize(4);
+    @And("^The following elements should be displayed on 'Different elements page': (\\d+) checkboxes, (\\d+) radiobuttons, dropdown with colors, (\\d+) buttons$")
+    public void checkControlsOnDifferentElementsPage(int amountOfCheckboxes, int amountOfRadiobuttons, int amountOfButtons) {
+        $$(checkboxesOnDifferentElementsPage).shouldHaveSize(amountOfCheckboxes);
         $$(checkboxesOnDifferentElementsPage).shouldHave(texts("Water", "Earth", "Wind", "Fire"));
 
-        $$(radiobuttonsOnDifferentElementsPage).shouldHaveSize(4);
+        $$(radiobuttonsOnDifferentElementsPage).shouldHaveSize(amountOfRadiobuttons);
         $$(radiobuttonsOnDifferentElementsPage).shouldHave(texts("Gold", "Silver", "Bronze", "Selen"));
 
         dropdownWithColors.shouldBe(enabled);
+
+        $$(buttonsOnDifferentElementsPage).shouldHaveSize(amountOfButtons);
         defaultButton.isDisplayed();
         button.isDisplayed();
     }
@@ -108,25 +127,41 @@ public class DifferentElementsSelenideCucumber {
         $(leftSection).isDisplayed();
     }
 
-    @Then("checkboxes should be (.+)")
-    @And("each checkbox should have individual entry in the log with value which is corresponded to the status of checkbox")
-    public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
-        for (Checkboxes checkbox : checkboxes) {
-            if (!$$(statusOfcheckboxes).get(checkbox.checkboxPosition).isSelected()) {
-                $$(logs).findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to false"));
+    @Then("\"([^\"]*)\" and \"([^\"]*)\" checkboxes should be checked")
+    public void checkSelectedCheckboxes(String checkbox1, String checkbox2) {
+        List<String> checkboxes = Arrays.asList(checkbox1,checkbox2);
+        for (String checkbox : checkboxes) {
+            $$(statusOfcheckboxes).get(Checkboxes.valueOf(checkbox).checkboxPosition).shouldBe(selected);
+        }
+    }
+
+    @And("^The log should have individual entry with value which is corresponded to the status of the \"([^\"]*)\" and \"([^\"]*)\" checkboxes$")
+    public void checkInfoInLogAboutSelectedCheckbox(String checkbox1, String checkbox2) {
+        List<String> checkboxes = Arrays.asList(checkbox1,checkbox2);
+        for (String checkbox : checkboxes) {
+            if (!$$(statusOfcheckboxes).get(Checkboxes.valueOf(checkbox).checkboxPosition).isSelected()) {
+                $$(logs).findBy(text(Checkboxes.valueOf(checkbox).checkboxValue)).shouldHave(text(Checkboxes.valueOf(checkbox).checkboxValue + ": condition changed to false"));
             } else {
-                $$(logs).findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to true"));
+                $$(logs).findBy(text(Checkboxes.valueOf(checkbox).checkboxValue)).shouldHave(text(Checkboxes.valueOf(checkbox).checkboxValue + ": condition changed to true"));
             }
         }
     }
 
-    @Then("The radiobutton should have individual entry in the log with value which is corresponded to the status of radiobutton")
-    public void checkInfoInLogAboutSelectedRadiobutton(Radiobuttons radiobutton) {
-        firstRowInLog.shouldHave(text("metal: value changed to " + radiobutton.radiobuttonValue));
+    @Then("^The log should have individual entry with value which is corresponded to the status of the radiobutton \"([^\"]*)\"$")
+    public void checkInfoInLogAboutSelectedRadiobutton(String radiobutton) {
+        firstRowInLog.shouldHave(text("metal: value changed to " + Radiobuttons.valueOf(radiobutton).radiobuttonValue));
     }
 
-    @Then("The log should have individual entry with value which is corresponded to the status of the selected value")
-    public void checkInfoInLogAboutSelectedColor(Colors color) {
-        firstRowInLog.shouldHave(text("Colors: value changed to " + color.colorValue));
+    @Then("^The log should have individual entry with value about selcted \"([^\"]*)\" color$")
+    public void checkInfoInLogAboutSelectedColor(String color) {
+        firstRowInLog.shouldHave(text("Colors: value changed to " + Colors.valueOf(color).colorValue));
+    }
+
+    @Then("^checkboxes \"([^\"]*)\" and \"([^\"]*)\" should be unchecked$")
+    public void checkboxesShouldBeUnchecked(String checkbox1, String checkbox2) {
+        List<String> checkboxes = Arrays.asList(checkbox1,checkbox2);
+        for (String checkbox : checkboxes) {
+            $$(statusOfcheckboxes).get(Checkboxes.valueOf(checkbox).checkboxPosition).shouldNotBe(selected);
+        }
     }
 }

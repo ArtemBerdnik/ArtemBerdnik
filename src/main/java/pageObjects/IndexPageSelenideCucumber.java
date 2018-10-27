@@ -1,13 +1,12 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.apache.commons.lang3.builder.HashCodeExclude;
 import org.openqa.selenium.support.FindBy;
-import org.testng.annotations.Test;
 
 import java.util.List;
 
@@ -16,6 +15,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static enums.Urls.INDEX_PAGE;
 import static org.testng.Assert.assertEquals;
@@ -37,20 +37,36 @@ public class IndexPageSelenideCucumber {
     @FindBy(css = "[class=\"profile-photo\"] > [ui = \"label\"]")
     private SelenideElement userName;
 
-    @FindBy(css = "[class=\"uui-navigation nav navbar-nav m-l8\"] > [class=\"dropdown\"]")
-    private SelenideElement serviceDropdownInPageHeader;
-
     @FindBy(css = "[class=\"uui-navigation nav navbar-nav m-l8\"]  a[class]")
-    private SelenideElement ServiceDropdownInHeader;
+    private SelenideElement serviceDropdownInHeader;
 
     @FindBy(css = "[class=\"dropdown open\"] li")
     private List<SelenideElement> subcategoriesUnderServiceDropdownInHeader;
 
     @FindBy(css = "li[class=\"menu-title\"][index=\"3\"]")
-    private SelenideElement ServiceDropdownInLeftPanel;
+    private SelenideElement serviceDropdownInLeftPanel;
+
+    @FindBy(css = "li[class=\"menu-title\"][index=\"3\"] > ul")
+    private SelenideElement serviceDropdownInLeftPanelAvailability;
 
     @FindBy(css = "[class=\"sub\"] span")
     private List<SelenideElement> subcategoriesUnderServiceDropdownInLeftPanel;
+
+    @FindBy(css = ".benefit-icon")
+    private List<SelenideElement> iconsInTheMiddleOfPage;
+
+    @FindBy(css = ".benefit-txt")
+    private List<SelenideElement> textsUnderIconsInTheMiddleOfPage;
+
+    @FindBy(css = ".main-title")
+    private SelenideElement mainTitle;
+
+    @FindBy(css = ".main-txt")
+    private SelenideElement mainText;
+
+    public IndexPageSelenideCucumber() {
+        page(this);
+    }
 
     //===============================methods========================================
     @Given("I open the Home Page")
@@ -68,13 +84,23 @@ public class IndexPageSelenideCucumber {
 
     @When("I open 'Different Elements Page' through the header menu Service")
     public void openDifferentElementsPage() {
-        ServiceDropdownInHeader.click();
+        serviceDropdownInHeader.click();
         $$(subcategoriesUnderServiceDropdownInHeader).get(6).click();
     }
 
     public void openDatesPage() {
-        ServiceDropdownInHeader.click();
+        serviceDropdownInHeader.click();
         $$(subcategoriesUnderServiceDropdownInHeader).get(1).click();
+    }
+
+    @When("I click on Service subcategory in the left section")
+    public void clickServiceDropdownInLeftPanel() {
+        serviceDropdownInLeftPanel.click();
+    }
+
+    @When("I click on 'Service' subcategory in the header")
+    public void clickServiceSubcategoryInHeader() {
+        serviceDropdownInHeader.click();
     }
 
     //===============================checks==========================================
@@ -93,19 +119,27 @@ public class IndexPageSelenideCucumber {
         userName.shouldHave(text("PITER CHAILOVSKII"));
     }
 
-    @When("I click on 'Service' subcategory in the header")
-    @Then("Drop down should contain the following options:")
-    public void checkSubcategoriesUnderServiceDropdownInHeader() {
-        ServiceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).shouldHaveSize(8);
-        $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+    @And("^The following elements should be displayed: (\\d+) pictures, (\\d+) texts under pictures, headline text and description$")
+    public void checkInterfaceInTheIndexPage(int amountOfPictures, int amountOfTextsUnderPictures) {
+
+        $$(iconsInTheMiddleOfPage).shouldHaveSize(amountOfPictures);
+        $$(iconsInTheMiddleOfPage).forEach(SelenideElement::isDisplayed);
+
+        $$(textsUnderIconsInTheMiddleOfPage).shouldHaveSize(amountOfTextsUnderPictures);
+        $$(textsUnderIconsInTheMiddleOfPage).forEach(SelenideElement::isDisplayed);
+
+        mainTitle.shouldBe(visible);
+        mainText.shouldBe(visible);
     }
 
-    @When("I click on Service subcategory in the left section")
-    @Then("Drop down should contain the following options:")
-    public void checkSubcategoriesUnderServiceDropdownInLeftPanel() {
-        ServiceDropdownInLeftPanel.click();
-        $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
-        $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+    @Then("^Drop down should contain the following options: Support, Dates, Complex Table, Simple Table, User Table, Tables With Pages, Different Elements, Performance$")
+    public void checkSubcategoriesUnderServiceDropdownInHeader() {
+        if (serviceDropdownInLeftPanelAvailability.getAttribute("class").equals("sub")) {
+            $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
+            $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+        } else {
+            $$(subcategoriesUnderServiceDropdownInHeader).shouldHaveSize(8);
+            $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+        }
     }
 }
