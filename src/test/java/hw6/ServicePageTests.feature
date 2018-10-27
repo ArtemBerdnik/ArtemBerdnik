@@ -22,7 +22,7 @@ Feature: Service Page tests
     When I select radiobutton "SELEN"
     Then The log should have individual entry with value which is corresponded to the status of the radiobutton "SELEN"
     When I select "YELLOW" in dropdown
-    Then The log should have individual entry with value about selcted "YELLOW" color
+    Then The log should have individual entry with value about selected "YELLOW" color
     When I unselected checkboxes "WIND" and "WATER"
     Then checkboxes "WIND" and "WATER" should be unchecked
     And The log should have individual entry with value which is corresponded to the status of the "WIND" and "WATER" checkboxes

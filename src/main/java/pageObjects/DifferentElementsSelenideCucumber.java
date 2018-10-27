@@ -1,7 +1,6 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -10,15 +9,12 @@ import enums.Colors;
 import enums.Radiobuttons;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
@@ -152,7 +148,7 @@ public class DifferentElementsSelenideCucumber {
         firstRowInLog.shouldHave(text("metal: value changed to " + Radiobuttons.valueOf(radiobutton).radiobuttonValue));
     }
 
-    @Then("^The log should have individual entry with value about selcted \"([^\"]*)\" color$")
+    @Then("^The log should have individual entry with value about selected \"([^\"]*)\" color$")
     public void checkInfoInLogAboutSelectedColor(String color) {
         firstRowInLog.shouldHave(text("Colors: value changed to " + Colors.valueOf(color).colorValue));
     }
