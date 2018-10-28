@@ -1,15 +1,15 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import enums.Users;
+import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
@@ -63,6 +63,9 @@ public class IndexPageSelenideCucumber {
 
     @FindBy(css = ".main-txt")
     private SelenideElement mainText;
+
+    @FindBy(css = ".logout > button")
+    private SelenideElement logoutButton;
 
     public IndexPageSelenideCucumber() {
         page(this);
@@ -145,14 +148,21 @@ public class IndexPageSelenideCucumber {
         mainText.shouldBe(visible);
     }
 
-    @Then("^Drop down should contain the following options: Support, Dates, Complex Table, Simple Table, User Table, Tables With Pages, Different Elements, Performance$")
-    public void checkSubcategoriesUnderServiceDropdownInHeader() {
+    @Then("Drop down should contain the following options:")
+    public void checkSubcategoriesUnderServiceDropdownInHeader(DataTable dropdownOptions) {
+        List<String> options = dropdownOptions.asList();
+
+        //Moved all words to uppercase
+        List<String> optionsUpperCase = options.stream()
+                                                .map(String::toUpperCase)
+                                                .collect(Collectors.toList());
+
         if (serviceDropdownInLeftPanelAvailability.getAttribute("class").equals("sub")) {
             $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
-            $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+            $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts(optionsUpperCase));
         } else {
             $$(subcategoriesUnderServiceDropdownInHeader).shouldHaveSize(8);
-            $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+            $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts(optionsUpperCase));
         }
     }
 }

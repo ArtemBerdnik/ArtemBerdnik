@@ -8,9 +8,25 @@ Feature: Service Page tests
     And Username should be 'PITER CHAILOVSKII'
     And The following elements should be displayed: 4 pictures, 4 texts under pictures, headline text and description
     When I click on "Service" button in Header
-    Then Drop down should contain the following options: Support, Dates, Complex Table, Simple Table, User Table, Tables With Pages, Different Elements, Performance
+    Then Drop down should contain the following options:
+      | Support            |
+      | Dates              |
+      | Complex Table      |
+      | Simple Table       |
+      | User Table         |
+      | Table With Pages   |
+      | Different Elements |
+      | Performance        |
     When I click on Service subcategory in the left section
-    Then Drop down should contain the following options: Support, Dates, Complex Table, Simple Table, User Table, Tables With Pages, Different Elements, Performance
+    Then Drop down should contain the following options:
+      | Support            |
+      | Dates              |
+      | Complex Table      |
+      | Simple Table       |
+      | User Table         |
+      | Table With Pages   |
+      | Different Elements |
+      | Performance        |
     When I open 'Different Elements Page' through the header menu Service
     Then 'Different Elements Page' should be opened
     And The following elements should be displayed on 'Different elements page': 4 checkboxes, 4 radiobuttons, dropdown with colors, 2 buttons

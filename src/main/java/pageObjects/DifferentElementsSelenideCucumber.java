@@ -1,6 +1,8 @@
 package pageObjects;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.WebDriverRunner;
+import cucumber.api.java.After;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -19,6 +21,14 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.testng.Assert.assertEquals;
 
 public class DifferentElementsSelenideCucumber {
+
+    @After(order = 10)
+    public void closeWebDriver() {
+        if (getWebDriver() != null) {
+            getWebDriver().manage().deleteAllCookies();
+            WebDriverRunner.closeWebDriver();
+        }
+    }
 
     @FindBy(css = "[class='label-checkbox']")
     private List<SelenideElement> checkboxesOnDifferentElementsPage;
