@@ -6,6 +6,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import enums.Users;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -13,11 +14,10 @@ import java.util.List;
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$$;
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.page;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static enums.Urls.INDEX_PAGE;
+import static enums.Users.PITER_CHAILOVSKII;
 import static org.testng.Assert.assertEquals;
 
 public class IndexPageSelenideCucumber {
@@ -82,6 +82,14 @@ public class IndexPageSelenideCucumber {
         submitButton.click();
     }
 
+    @And("^I login as user \"([^\"]*)\"$")
+    public void loginAsUser(String name) {
+        userIcon.click();
+        login.sendKeys(PITER_CHAILOVSKII.login);
+        password.sendKeys(PITER_CHAILOVSKII.password);
+        submitButton.click();
+    }
+
     @When("I open 'Different Elements Page' through the header menu Service")
     public void openDifferentElementsPage() {
         serviceDropdownInHeader.click();
@@ -98,9 +106,14 @@ public class IndexPageSelenideCucumber {
         serviceDropdownInLeftPanel.click();
     }
 
-    @When("I click on 'Service' subcategory in the header")
+    @When("I click on \"Service\" button in Header")
     public void clickServiceSubcategoryInHeader() {
         serviceDropdownInHeader.click();
+    }
+
+    @And("^I click on \"([^\"]*)\" button in Service dropdown$")
+    public void iClickOnButtonInServiceDropdown(String button) {
+        $$(subcategoriesUnderServiceDropdownInHeader).find(text(button)).click();
     }
 
     //===============================checks==========================================

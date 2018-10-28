@@ -7,7 +7,7 @@ Feature: Service Page tests
     Then The user icon should be displayed on the header
     And Username should be 'PITER CHAILOVSKII'
     And The following elements should be displayed: 4 pictures, 4 texts under pictures, headline text and description
-    When I click on 'Service' subcategory in the header
+    When I click on "Service" button in Header
     Then Drop down should contain the following options: Support, Dates, Complex Table, Simple Table, User Table, Tables With Pages, Different Elements, Performance
     When I click on Service subcategory in the left section
     Then Drop down should contain the following options: Support, Dates, Complex Table, Simple Table, User Table, Tables With Pages, Different Elements, Performance
