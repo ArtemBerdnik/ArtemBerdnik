@@ -30,6 +30,7 @@ public class DifferentElementsSelenideCucumber {
         }
     }
 
+
     @FindBy(css = "[class='label-checkbox']")
     private List<SelenideElement> checkboxesOnDifferentElementsPage;
 
