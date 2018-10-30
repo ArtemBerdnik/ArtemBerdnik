@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static enums.Urls.INDEX_PAGE;
+import static enums.Urls.HOME_PAGE;
 import static enums.Users.PITER_CHAILOVSKII;
 import static org.testng.Assert.assertEquals;
 
@@ -75,7 +75,7 @@ public class IndexPageSelenideCucumber {
     @Given("I open the Home Page")
     public void openHomePage() {
         if (!getWebDriver().getTitle().equals("Home Page")){
-            open(INDEX_PAGE.getUrl);
+            open(HOME_PAGE.getUrl);
         }
     }
 

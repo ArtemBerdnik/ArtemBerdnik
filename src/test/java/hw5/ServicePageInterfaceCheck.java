@@ -18,7 +18,7 @@ import static enums.Checkboxes.WATER;
 import static enums.Checkboxes.WIND;
 import static enums.Colors.YELLOW;
 import static enums.Radiobuttons.SELEN;
-import static enums.Urls.INDEX_PAGE;
+import static enums.Urls.HOME_PAGE;
 import static enums.Users.PITER_CHAILOVSKII;
 
 @Feature("Service Page")
@@ -37,7 +37,7 @@ public class ServicePageInterfaceCheck extends TestNGBaseHW5 {
 
     @BeforeMethod
     public void beforeMethod() {
-        open(INDEX_PAGE.getUrl);
+        open(HOME_PAGE.getUrl);
         getWebDriver().manage().window().maximize();
     }
 

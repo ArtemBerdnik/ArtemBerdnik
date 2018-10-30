@@ -1,5 +1,8 @@
 package enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Checkboxes {
 
     WATER("Water", 0),
@@ -15,4 +18,11 @@ public enum Checkboxes {
         this.checkboxPosition = checkboxPosition;
     }
 
+    public static List<String> getCheckboxesNames() {
+        List<String> checkboxNames = new ArrayList<>();
+        for (Checkboxes category : Checkboxes.values()) {
+            checkboxNames.add(category.checkboxValue);
+        }
+        return checkboxNames;
+    }
 }

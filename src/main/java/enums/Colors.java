@@ -14,4 +14,6 @@ public enum Colors {
         this.colorValue = colorValue;
         this.colorPosition = colorPosition;
     }
+
+
 }

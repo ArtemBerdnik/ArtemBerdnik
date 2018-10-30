@@ -1,22 +1,22 @@
 package pageObjects;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import enums.Users;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static enums.SubcategoriesUnderServiceDropdown.DATES;
+import static enums.SubcategoriesUnderServiceDropdown.DIFFERENT_ELEMENTS;
+import static enums.SubcategoriesUnderServiceDropdown.getSubcategoriesNames;
+import static enums.Urls.HOME_PAGE;
 import static org.testng.Assert.assertEquals;
 
 public class HomePageSelenide {
 
-    private List<String> textsForSubcategoriesUnderServiceDropdown = Arrays.asList("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE",
-                                                                                            "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE");
     @FindBy(css = ".profile-photo")
     private SelenideElement userIcon;
 
@@ -39,30 +39,34 @@ public class HomePageSelenide {
     private SelenideElement ServiceDropdownInHeader;
 
     @FindBy(css = "[class='dropdown open'] li")
-    private List<SelenideElement> subcategoriesUnderServiceDropdownInHeader;
+    private ElementsCollection subcategoriesUnderServiceDropdownInHeader;
 
     @FindBy(css = "li[class='menu-title'][index='3']")
     private SelenideElement ServiceDropdownInLeftPanel;
 
     @FindBy(css = "[class='sub'] span")
-    private List<SelenideElement> subcategoriesUnderServiceDropdownInLeftPanel;
+    private ElementsCollection subcategoriesUnderServiceDropdownInLeftPanel;
 
     //===============================methods========================================
-    public void login(String name, String pass) {
+    public void openHomePage() {
+        open(HOME_PAGE.getUrl);
+    }
+
+    public void login(Users user) {
         userIcon.click();
-        login.sendKeys(name);
-        password.sendKeys(pass);
+        login.sendKeys(user.login);
+        password.sendKeys(user.password);
         submitButton.click();
     }
 
     public void openDifferentElementsPage() {
         ServiceDropdownInHeader.click();
-        subcategoriesUnderServiceDropdownInHeader.get(6).click();
+        subcategoriesUnderServiceDropdownInHeader.findBy(text(DIFFERENT_ELEMENTS.name)).click();
     }
 
     public void openDatesPage() {
         ServiceDropdownInHeader.click();
-        subcategoriesUnderServiceDropdownInHeader.get(1).click();
+        subcategoriesUnderServiceDropdownInHeader.findBy(text(DATES.name)).click();
     }
 
     //===============================checks==========================================
@@ -76,13 +80,13 @@ public class HomePageSelenide {
 
     public void checkSubcategoriesUnderServiceDropdownInHeader() {
         ServiceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).shouldHaveSize(8);
-        $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts(textsForSubcategoriesUnderServiceDropdown));
+        subcategoriesUnderServiceDropdownInHeader.shouldHaveSize(8);
+        subcategoriesUnderServiceDropdownInHeader.shouldHave(texts(getSubcategoriesNames()));
     }
 
     public void checkSubcategoriesUnderServiceDropdownInLeftPanel() {
         ServiceDropdownInLeftPanel.click();
-        $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
-        $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts(textsForSubcategoriesUnderServiceDropdown));
+        subcategoriesUnderServiceDropdownInLeftPanel.shouldHaveSize(8);
+        subcategoriesUnderServiceDropdownInLeftPanel.shouldHave(texts(getSubcategoriesNames()));
     }
 }

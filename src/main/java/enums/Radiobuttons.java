@@ -1,5 +1,8 @@
 package enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Radiobuttons {
 
     GOLD("Gold", 0),
@@ -13,5 +16,13 @@ public enum Radiobuttons {
     Radiobuttons(String radiobuttonValue, int radiobuttonPosition) {
         this.radiobuttonValue = radiobuttonValue;
         this.radiobuttonPosition = radiobuttonPosition;
+    }
+
+    public static List<String> getRadiobuttonsNames() {
+        List<String> radiobuttonsNames = new ArrayList<>();
+        for (Radiobuttons radio : Radiobuttons.values()) {
+            radiobuttonsNames.add(radio.radiobuttonValue);
+        }
+        return radiobuttonsNames;
     }
 }

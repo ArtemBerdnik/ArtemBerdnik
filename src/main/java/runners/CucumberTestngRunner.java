@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
 import static com.codeborne.selenide.Selenide.close;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static enums.Urls.INDEX_PAGE;
+import static enums.Urls.HOME_PAGE;
 
 @CucumberOptions(features = "src/test/java/hw6", glue = "pageObjects")
 public class CucumberTestngRunner extends AbstractTestNGCucumberTests {
@@ -23,7 +23,7 @@ public class CucumberTestngRunner extends AbstractTestNGCucumberTests {
 
     @BeforeClass
     public void beforeClass() {
-        open(INDEX_PAGE.getUrl);
+        open(HOME_PAGE.getUrl);
     }
 
     @AfterMethod

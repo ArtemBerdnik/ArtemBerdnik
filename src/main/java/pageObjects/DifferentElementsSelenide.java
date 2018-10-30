@@ -1,31 +1,24 @@
 package pageObjects;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import enums.Checkboxes;
 import enums.Colors;
 import enums.Radiobuttons;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Condition.selected;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Condition.*;
+import static enums.Checkboxes.getCheckboxesNames;
+import static enums.Radiobuttons.getRadiobuttonsNames;
 
 public class DifferentElementsSelenide {
 
-    private List<String> textsForCheckboxes = Arrays.asList("Water", "Earth", "Wind", "Fire");
-    private List<String> textsForRadiobuttons = Arrays.asList("Gold", "Silver", "Bronze", "Selen");
-
     @FindBy(css = "[class='label-checkbox']")
-    private List<SelenideElement> checkboxesOnDifferentElementsPage;
+    private ElementsCollection checkboxesOnDifferentElementsPage;
 
     @FindBy(css = "[class='label-radio']")
-    private List<SelenideElement> radiobuttonsOnDifferentElementsPage;
+    private ElementsCollection radiobuttonsOnDifferentElementsPage;
 
     @FindBy(css = "select[class='uui-form-element']")
     private SelenideElement dropdownWithColors;
@@ -46,43 +39,43 @@ public class DifferentElementsSelenide {
     private SelenideElement firstRowInLog;
 
     @FindBy(css = "[class='label-checkbox'] > input")
-    private List<SelenideElement> statusOfcheckboxes;
+    private ElementsCollection statusOfcheckboxes;
 
     @FindBy(css = "[type = 'radio']")
-    private List<SelenideElement> statusOfRadiobuttons;
+    private ElementsCollection statusOfRadiobuttons;
 
     @FindBy(css = "select[class='uui-form-element'] option")
-    private List<SelenideElement> availableColors;
+    private ElementsCollection availableColors;
 
     @FindBy(css = "[class='panel-body-list logs'] li")
-    private List<SelenideElement> logs;
+    private ElementsCollection logs;
 
     //===============================methods========================================
 
     public void selectCheckboxes(Checkboxes... checkboxes) {
         for (Checkboxes checkbox : checkboxes) {
-            $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+            checkboxesOnDifferentElementsPage.findBy(text(checkbox.checkboxValue)).click();
         }
     }
 
     public void selectRadiobutton(Radiobuttons radiobutton) {
-        $$(radiobuttonsOnDifferentElementsPage).findBy(text(radiobutton.radiobuttonValue)).click();
-        $$(statusOfRadiobuttons).get(radiobutton.radiobuttonPosition).shouldBe(selected);
+        radiobuttonsOnDifferentElementsPage.findBy(text(radiobutton.radiobuttonValue)).click();
+        statusOfRadiobuttons.get(radiobutton.radiobuttonPosition).shouldBe(selected);
     }
 
     public void selectColorInDropdown(Colors color) {
         dropdownWithColors.click();
-        $$(availableColors).findBy(text(color.colorValue)).click();
+        availableColors.findBy(text(color.colorValue)).click();
     }
 
     //===============================checks==========================================
 
     public void checkControlsOnDifferentElementsPage() {
-        $$(checkboxesOnDifferentElementsPage).shouldHaveSize(4);
-        $$(checkboxesOnDifferentElementsPage).shouldHave(texts(textsForCheckboxes));
+        checkboxesOnDifferentElementsPage.shouldHaveSize(4);
+        checkboxesOnDifferentElementsPage.shouldHave(texts(getCheckboxesNames()));
 
-        $$(radiobuttonsOnDifferentElementsPage).shouldHaveSize(4);
-        $$(radiobuttonsOnDifferentElementsPage).shouldHave(texts(textsForRadiobuttons));
+        radiobuttonsOnDifferentElementsPage.shouldHaveSize(4);
+        radiobuttonsOnDifferentElementsPage.shouldHave(texts(getRadiobuttonsNames()));
 
         dropdownWithColors.shouldBe(enabled);
         defaultButton.isDisplayed();
@@ -99,10 +92,10 @@ public class DifferentElementsSelenide {
 
     public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
         for (Checkboxes checkbox : checkboxes) {
-            if (!$$(statusOfcheckboxes).get(checkbox.checkboxPosition).isSelected()) {
-                $$(logs).findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to false"));
+            if (!statusOfcheckboxes.get(checkbox.checkboxPosition).isSelected()) {
+                logs.findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to false"));
             } else {
-                $$(logs).findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to true"));
+                logs.findBy(text(checkbox.checkboxValue)).shouldHave(text(checkbox.checkboxValue + ": condition changed to true"));
             }
         }
     }
