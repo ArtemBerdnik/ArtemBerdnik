@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class CheckingTextBelowPicturesOnIndexPage extends TestNGBaseHW2 {
+public class CheckingTextBelowPicturesOnHomePage extends TestNGBaseHW2 {
 
     @Test(dataProvider = "dataProviderToGetTextBelowPicturesOnIndexPage", dataProviderClass = DataProviders.class)
     public void verifyTextBelowPictures(String text, int testNumber) {

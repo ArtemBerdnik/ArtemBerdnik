@@ -8,15 +8,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageObjects.DifferentElementsSelenide;
 import pageObjects.DifferentElementsSelenideAllureAnnotations;
-import pageObjects.IndexPageSelenide;
 import pageObjects.IndexPageSelenideAllureAnnotations;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static enums.Checkboxes.FIRE;
 import static enums.Checkboxes.WATER;
 import static enums.Checkboxes.WIND;
 import static enums.Colors.YELLOW;

@@ -6,6 +6,7 @@ import enums.Colors;
 import enums.Radiobuttons;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
@@ -16,6 +17,9 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class DifferentElementsSelenide {
+
+    private List<String> textsForCheckboxes = Arrays.asList("Water", "Earth", "Wind", "Fire");
+    private List<String> textsForRadiobuttons = Arrays.asList("Gold", "Silver", "Bronze", "Selen");
 
     @FindBy(css = "[class='label-checkbox']")
     private List<SelenideElement> checkboxesOnDifferentElementsPage;
@@ -75,10 +79,10 @@ public class DifferentElementsSelenide {
 
     public void checkControlsOnDifferentElementsPage() {
         $$(checkboxesOnDifferentElementsPage).shouldHaveSize(4);
-        $$(checkboxesOnDifferentElementsPage).shouldHave(texts("Water", "Earth", "Wind", "Fire"));
+        $$(checkboxesOnDifferentElementsPage).shouldHave(texts(textsForCheckboxes));
 
         $$(radiobuttonsOnDifferentElementsPage).shouldHaveSize(4);
-        $$(radiobuttonsOnDifferentElementsPage).shouldHave(texts("Gold", "Silver", "Bronze", "Selen"));
+        $$(radiobuttonsOnDifferentElementsPage).shouldHave(texts(textsForRadiobuttons));
 
         dropdownWithColors.shouldBe(enabled);
         defaultButton.isDisplayed();
@@ -86,11 +90,11 @@ public class DifferentElementsSelenide {
     }
 
     public void checkRightSectionIsDisplayed() {
-        $(rightSection).isDisplayed();
+        rightSection.isDisplayed();
     }
 
     public void checkLeftSectionIsDisplayed() {
-        $(leftSection).isDisplayed();
+        leftSection.isDisplayed();
     }
 
     public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
