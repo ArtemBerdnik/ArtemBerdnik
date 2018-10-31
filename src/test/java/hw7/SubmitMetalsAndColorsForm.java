@@ -22,5 +22,11 @@ public class SubmitMetalsAndColorsForm extends JDITestsInit {
 
         //3. Fill form Metals & Colors by data below:
         metalsAndColors.fillNewDataToMetalColorForm(newData);
+
+        //4. Submit form Metals & Colors
+        metalsAndColors.clickSubmitButton();
+
+        //5. Result sections should contains data below:
+        metalsAndColors.checkResultSection(newData);
     }
 }

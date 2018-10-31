@@ -31,7 +31,7 @@ public class IndexPageSelenideCucumber {
     @FindBy(css = "[id = 'Password']")
     private SelenideElement password;
 
-    @FindBy(css = "[type = 'submit']")
+    @FindBy(css = "[type = 'fillData']")
     private SelenideElement submitButton;
 
     @FindBy(css = "[class=\"profile-photo\"] > [ui = \"label\"]")

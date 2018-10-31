@@ -18,7 +18,7 @@ public class CheckingEpamGitHubIOJdiPage extends TestNGBaseHW2 {
         driver.findElement(By.id("user-icon")).click();
         driver.findElement(By.xpath("//input[@id=\"Name\"]")).sendKeys("epam");
         driver.findElement(By.xpath("//input[@id=\"Password\"]")).sendKeys("1234");
-        driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
+        driver.findElement(By.xpath("//button[@type=\"fillData\"]")).click();
 
         //4. Assert displayed username
         assertEquals(driver.findElement(By.xpath("//span[@ui=\"label\"][@class!=\"hidden\"]")).getText(), "PITER CHAILOVSKII");

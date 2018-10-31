@@ -33,7 +33,7 @@ public class SimpleTestSelenide extends SelenideTestBase {
         $(".profile-photo").click();
         $("[id='Name']").sendKeys("epam");
         $("[id='Password']").sendKeys("1234");
-        $("[type='submit']").click();
+        $("[type='fillData']").click();
 //        $(By.xpath(""));
 //        $$(By.xpath(""));
 

@@ -19,7 +19,7 @@ public class HomePage extends TestNGBaseHW3 {
     @FindBy(css = "#Password")
     private WebElement password;
 
-    @FindBy(css = "[type = 'submit']")
+    @FindBy(css = "[type = 'fillData']")
     private WebElement submitButton;
 
     @FindBy(css = "[class=\"profile-photo\"] > [ui = \"label\"]")

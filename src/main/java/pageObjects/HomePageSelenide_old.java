@@ -16,7 +16,7 @@ public class HomePageSelenide_old {
     @FindBy(css = "[id = 'Password']")
     private SelenideElement password;
 
-    @FindBy(css = "[type = 'submit']")
+    @FindBy(css = "[type = 'fillData']")
     private SelenideElement submit;
 
     //================================================

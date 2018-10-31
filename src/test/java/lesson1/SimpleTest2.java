@@ -18,7 +18,7 @@ public class SimpleTest2 {
         driver.findElement(By.id("Name")).sendKeys("epam");
         driver.findElement(By.id("Password")).click();
         driver.findElement(By.id("Password")).sendKeys("1234");
-        driver.findElement(By.cssSelector(".login [type = 'submit']")).click();
+        driver.findElement(By.cssSelector(".login [type = 'fillData']")).click();
 
         assertEquals("PITER CHAILOVSKII", driver.findElement(By.xpath("//span[@ui=\"label\"][@class!=\"hidden\"]")).getText());
 

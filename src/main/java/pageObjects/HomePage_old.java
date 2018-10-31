@@ -14,7 +14,7 @@ public class HomePage_old {
     @FindBy(css = "[id = 'Password']")
     private WebElement password;
 
-    @FindBy(css = "[type = 'submit']")
+    @FindBy(css = "[type = 'fillData']")
     private WebElement submit;
 
     public void login(String name, String passwd) {

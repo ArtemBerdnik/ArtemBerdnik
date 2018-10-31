@@ -52,7 +52,7 @@ public class MetalColorForm extends Form<MetalsAndColorsData> {
     private SummaryForm summaryForm;
 
     @Step
-    public void submit(MetalsAndColorsData data) {
+    public void fillData(MetalsAndColorsData data) {
         summaryForm.submit(data);
         elements.check(data.getElements());
         colors.select(data.getColor());
@@ -62,6 +62,10 @@ public class MetalColorForm extends Form<MetalsAndColorsData> {
         for (String vegetable : data.getVegetables()) {
             vegetables.check(vegetable);
         }
+    }
+
+    @Step
+    public void submit() {
         submit.click();
     }
 }
