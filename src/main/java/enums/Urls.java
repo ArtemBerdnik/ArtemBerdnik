@@ -2,7 +2,7 @@ package enums;
 
 public enum Urls {
 
-    HOME_PAGE("https://epam.github.io/JDI/");
+    HOME_PAGE("https://epam.github.io/jdi/");
 
     public String getUrl;
 

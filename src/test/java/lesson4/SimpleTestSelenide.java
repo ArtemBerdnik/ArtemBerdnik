@@ -24,7 +24,7 @@ public class SimpleTestSelenide extends SelenideTestBase {
         setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
 
         //navigate
-        open("https://epam.github.io/JDI/index.html");
+        open("https://epam.github.io/jdi/index.html");
 
         //assert title
         assertEquals(getWebDriver().getTitle(), "Home Page");

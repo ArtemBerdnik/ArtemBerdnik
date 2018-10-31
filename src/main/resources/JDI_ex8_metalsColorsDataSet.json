@@ -33,12 +33,5 @@
     "color": "Blue",
     "metals": "Selen",
     "vegetables": ["Cucumber", "Tomato", "Salad", "Onion"]
-  },
-  "data_6": {
-    "summary": [],
-    "elements": [],
-    "color": "",
-    "metals": "",
-    "vegetables": []
   }
 }

@@ -1,6 +1,6 @@
-package JDI.site.sections;
+package jdi.site.forms;
 
-import JDI.entities.User;
+import jdi.entities.User;
 import com.epam.jdi.uitests.web.selenium.elements.common.Button;
 import com.epam.jdi.uitests.web.selenium.elements.common.TextField;
 import com.epam.jdi.uitests.web.selenium.elements.composite.Form;

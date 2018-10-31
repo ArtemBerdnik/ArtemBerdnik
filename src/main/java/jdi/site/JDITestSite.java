@@ -1,19 +1,18 @@
-package JDI.site;
+package jdi.site;
 
-import JDI.entities.User;
-import JDI.site.pages.HomePage;
-import JDI.site.pages.MetalsAndColors;
-import JDI.site.sections.LoginForm;
 import com.epam.jdi.uitests.web.selenium.elements.composite.WebSite;
 import com.epam.jdi.uitests.web.selenium.elements.pageobjects.annotations.JSite;
 import io.qameta.allure.Step;
+import jdi.entities.User;
+import jdi.site.forms.LoginForm;
+import jdi.site.pages.HomePage;
+import jdi.site.pages.MetalsAndColors;
 
 @JSite("https://epam.github.io/JDI/")
 public class JDITestSite extends WebSite {
     public static HomePage homePage;
 
     public static LoginForm loginForm;
-
     public static MetalsAndColors metalsAndColors;
 
     @Step

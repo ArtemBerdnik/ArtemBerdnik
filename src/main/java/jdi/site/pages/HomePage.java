@@ -1,4 +1,4 @@
-package JDI.site.pages;
+package jdi.site.pages;
 
 import com.epam.jdi.uitests.web.selenium.elements.common.Label;
 import com.epam.jdi.uitests.web.selenium.elements.common.Link;

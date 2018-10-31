@@ -16,7 +16,7 @@ public class SimpleTestInvocationCount extends TestBase {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
-        driver.get("https://epam.github.io/JDI/index.html");
+        driver.get("https://epam.github.io/jdi/index.html");
 
         Assert.assertEquals(driver.getTitle(), "Home Page");
 

@@ -34,7 +34,7 @@ public class CopyOfHW1ToPlayWithAnnotationsAndInstructions extends TestNGBaseHW2
     @Test(groups = "TestGroup")
     public void verifyingIndexHtmlPage() {
         //1. Open the site
-        driver.get("https://epam.github.io/JDI/");
+        driver.get("https://epam.github.io/jdi/");
 
         //2. Assert Browser title
         assertEquals(driver.getTitle(), "Home Page");
@@ -93,11 +93,11 @@ public class CopyOfHW1ToPlayWithAnnotationsAndInstructions extends TestNGBaseHW2
         driver.switchTo().defaultContent();
 
         //13. Assert the text of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getText(), "JDI GITHUB");
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getText(), "jdi GITHUB");
 
         //14. Assert the link of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getAttribute("href"), "https://github.com/epam/JDI");
-        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).isEnabled());
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getAttribute("href"), "https://github.com/epam/jdi");
+        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).isEnabled());
 
         //15. Assert that left pane is being displayed
         assertTrue(driver.findElement(By.xpath("//div[@name=\"navigation-sidebar\"]")).isDisplayed());

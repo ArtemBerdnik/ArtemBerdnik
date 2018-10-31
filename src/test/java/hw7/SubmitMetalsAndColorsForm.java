@@ -1,15 +1,17 @@
 package hw7;
 
 import base.JDITestsInit;
+import jdi.entities.MetalsAndColorsData;
+import jdi.utils.MetalsAndColorsDataProvider;
 import org.testng.annotations.Test;
 
-import static JDI.site.JDITestSite.*;
+import static jdi.site.JDITestSite.*;
 
-public class SubmitMetalsAndColorsForm  extends JDITestsInit {
+public class SubmitMetalsAndColorsForm extends JDITestsInit {
 
-    @Test
-    public void loginTest() {
-        //1. Login on JDI site as User
+    @Test(dataProvider = "simpleDataProvider", dataProviderClass = MetalsAndColorsDataProvider.class)
+    public void loginTest(MetalsAndColorsData newData) {
+        //1. Login on jdi site as User
         homePage.open();
         login();
         homePage.checkOpened();
@@ -17,5 +19,8 @@ public class SubmitMetalsAndColorsForm  extends JDITestsInit {
         //2. Open Metals & Colors page by Header menu
         openMetalsAndColorsPage();
         metalsAndColors.checkOpened();
+
+        //3. Fill form Metals & Colors by data below:
+        metalsAndColors.fillNewDataToMetalColorForm(newData);
     }
 }

@@ -28,7 +28,7 @@ public class HomePageSelenide_old {
     }
 
     public void openPage() {
-        open("https://epam.github.io/JDI/index.html");
+        open("https://epam.github.io/jdi/index.html");
     }
 
     //=======================================================

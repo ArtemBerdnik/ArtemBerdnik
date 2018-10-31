@@ -12,7 +12,7 @@ public class SimpleTest2 {
     public void simpleTest2() {
         WebDriver driver = new ChromeDriver();
 
-        driver.get("https://epam.github.io/JDI/index.html");
+        driver.get("https://epam.github.io/jdi/index.html");
 
         driver.findElement(By.cssSelector(".profile-photo")).click();
         driver.findElement(By.id("Name")).sendKeys("epam");

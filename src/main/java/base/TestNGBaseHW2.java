@@ -13,7 +13,7 @@ public class TestNGBaseHW2 {
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
         driver = new ChromeDriver();
-        driver.get("https://epam.github.io/JDI/");
+        driver.get("https://epam.github.io/jdi/");
         driver.manage().window().maximize();
     }
 

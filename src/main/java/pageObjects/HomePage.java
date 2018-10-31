@@ -154,11 +154,11 @@ public class HomePage extends TestNGBaseHW3 {
     }
 
     public void checkSubheaderText() {
-        assertEquals(jdiSubHeader.getText(), "JDI GITHUB");
+        assertEquals(jdiSubHeader.getText(), "jdi GITHUB");
     }
 
     public void checkLinkOfSubheader() {
-        assertEquals(jdiSubHeader.getAttribute("href"), "https://github.com/epam/JDI");
+        assertEquals(jdiSubHeader.getAttribute("href"), "https://github.com/epam/jdi");
         assertTrue(jdiSubHeader.isDisplayed());
         assertTrue(jdiSubHeader.isEnabled());
     }

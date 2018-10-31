@@ -28,7 +28,7 @@ public class SimpleTest extends TestBase {
 
     @Test(groups = "Group1")
     public void simpleTest() {
-        driver.get("https://epam.github.io/JDI/index.html");
+        driver.get("https://epam.github.io/jdi/index.html");
         Assert.assertEquals(driver.getTitle(), "Home Page");
     }
 }

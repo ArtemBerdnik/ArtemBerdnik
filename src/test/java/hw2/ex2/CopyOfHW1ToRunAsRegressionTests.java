@@ -15,7 +15,7 @@ public class CopyOfHW1ToRunAsRegressionTests {
     public void FirstTestForVerifyingIndexHtmlPage() {
         //1. Open site
         WebDriver driver = new ChromeDriver();
-        driver.get("https://epam.github.io/JDI/");
+        driver.get("https://epam.github.io/jdi/");
         driver.manage().window().maximize();
 
         //2. Assert Browser title
@@ -75,11 +75,11 @@ public class CopyOfHW1ToRunAsRegressionTests {
         driver.switchTo().defaultContent();
 
         //13. Assert the text of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getText(), "JDI GITHUB");
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getText(), "jdi GITHUB");
 
         //14. Assert the link of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getAttribute("href"), "https://github.com/epam/JDI");
-        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).isEnabled());
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getAttribute("href"), "https://github.com/epam/jdi");
+        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).isEnabled());
 
         //15. Assert that left pane is being displayed
         assertTrue(driver.findElement(By.xpath("//div[@name=\"navigation-sidebar\"]")).isDisplayed());
@@ -95,7 +95,7 @@ public class CopyOfHW1ToRunAsRegressionTests {
     public void SecondTestForVerifyingIndexHtmlPage() {
         //1. Open site
         WebDriver driver = new ChromeDriver();
-        driver.get("https://epam.github.io/JDI/");
+        driver.get("https://epam.github.io/jdi/");
         driver.manage().window().maximize();
 
         //2. Assert Browser title
@@ -155,11 +155,11 @@ public class CopyOfHW1ToRunAsRegressionTests {
         driver.switchTo().defaultContent();
 
         //13. Assert the text of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getText(), "JDI GITHUB");
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getText(), "jdi GITHUB");
 
         //14. Assert the link of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getAttribute("href"), "https://github.com/epam/JDI");
-        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).isEnabled());
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getAttribute("href"), "https://github.com/epam/jdi");
+        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).isEnabled());
 
         //15. Assert that left pane is being displayed
         assertTrue(driver.findElement(By.xpath("//div[@name=\"navigation-sidebar\"]")).isDisplayed());
@@ -175,7 +175,7 @@ public class CopyOfHW1ToRunAsRegressionTests {
     public void ThirdTestForVerifyingIndexHtmlPage() {
         //1. Open site
         WebDriver driver = new ChromeDriver();
-        driver.get("https://epam.github.io/JDI/");
+        driver.get("https://epam.github.io/jdi/");
         driver.manage().window().maximize();
 
         //2. Assert Browser title
@@ -235,11 +235,11 @@ public class CopyOfHW1ToRunAsRegressionTests {
         driver.switchTo().defaultContent();
 
         //13. Assert the text of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getText(), "JDI GITHUB");
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getText(), "jdi GITHUB");
 
         //14. Assert the link of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getAttribute("href"), "https://github.com/epam/JDI");
-        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).isEnabled());
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getAttribute("href"), "https://github.com/epam/jdi");
+        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).isEnabled());
 
         //15. Assert that left pane is being displayed
         assertTrue(driver.findElement(By.xpath("//div[@name=\"navigation-sidebar\"]")).isDisplayed());

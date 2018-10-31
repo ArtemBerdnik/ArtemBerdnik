@@ -68,11 +68,11 @@ public class CheckingEpamGitHubIOJdiPage extends TestNGBaseHW2 {
         driver.switchTo().defaultContent();
 
         //13. Assert the text of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getText(), "JDI GITHUB");
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getText(), "jdi GITHUB");
 
         //14. Assert the link of the sub header
-        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).getAttribute("href"), "https://github.com/epam/JDI");
-        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/JDI\"]")).isEnabled());
+        assertEquals(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).getAttribute("href"), "https://github.com/epam/jdi");
+        assertTrue(driver.findElement(By.xpath("//a[@href=\"https://github.com/epam/jdi\"]")).isEnabled());
 
         //15. Assert that left pane is being displayed
         assertTrue(driver.findElement(By.xpath("//div[@name=\"navigation-sidebar\"]")).isDisplayed());
