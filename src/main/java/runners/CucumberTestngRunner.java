@@ -20,12 +20,6 @@ public class CucumberTestngRunner extends AbstractTestNGCucumberTests {
         Configuration.browser = "chrome";
     }
 
-
-    @BeforeClass
-    public void beforeClass() {
-        open(HOME_PAGE.getUrl);
-    }
-
     @AfterMethod
     public void afterMethod() {
         getWebDriver().manage().deleteAllCookies();

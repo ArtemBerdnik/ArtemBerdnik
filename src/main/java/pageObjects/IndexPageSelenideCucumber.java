@@ -81,9 +81,7 @@ public class IndexPageSelenideCucumber {
     //===============================methods========================================
     @Given("I open the Home Page")
     public void openHomePage() {
-        if (!getWebDriver().getTitle().equals("Home Page")) {
             open(HOME_PAGE.getUrl);
-        }
     }
 
     @When("I log in as user (.+) with password (.+)")
