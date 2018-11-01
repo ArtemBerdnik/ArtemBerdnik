@@ -1,5 +1,6 @@
 package pageObjects;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -41,7 +42,7 @@ public class IndexPageSelenideCucumber {
     private SelenideElement serviceDropdownInHeader;
 
     @FindBy(css = "[class=\"dropdown open\"] li")
-    private List<SelenideElement> subcategoriesUnderServiceDropdownInHeader;
+    private ElementsCollection subcategoriesUnderServiceDropdownInHeader;
 
     @FindBy(css = "li[class=\"menu-title\"][index=\"3\"]")
     private SelenideElement serviceDropdownInLeftPanel;
@@ -50,13 +51,13 @@ public class IndexPageSelenideCucumber {
     private SelenideElement serviceDropdownInLeftPanelAvailability;
 
     @FindBy(css = "[class=\"sub\"] span")
-    private List<SelenideElement> subcategoriesUnderServiceDropdownInLeftPanel;
+    private ElementsCollection subcategoriesUnderServiceDropdownInLeftPanel;
 
     @FindBy(css = ".benefit-icon")
-    private List<SelenideElement> iconsInTheMiddleOfPage;
+    private ElementsCollection iconsInTheMiddleOfPage;
 
     @FindBy(css = ".benefit-txt")
-    private List<SelenideElement> textsUnderIconsInTheMiddleOfPage;
+    private ElementsCollection textsUnderIconsInTheMiddleOfPage;
 
     @FindBy(css = ".main-title")
     private SelenideElement mainTitle;
@@ -98,12 +99,12 @@ public class IndexPageSelenideCucumber {
     @When("I open 'Different Elements Page' through the header menu Service")
     public void openDifferentElementsPage() {
         serviceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).get(6).click();
+        subcategoriesUnderServiceDropdownInHeader.get(6).click();
     }
 
     public void openDatesPage() {
         serviceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).get(1).click();
+        subcategoriesUnderServiceDropdownInHeader.get(1).click();
     }
 
     @When("I click on Service subcategory in the left section")
@@ -118,7 +119,7 @@ public class IndexPageSelenideCucumber {
 
     @And("^I click on \"([^\"]*)\" button in Service dropdown$")
     public void iClickOnButtonInServiceDropdown(String button) {
-        $$(subcategoriesUnderServiceDropdownInHeader).find(text(button)).click();
+        subcategoriesUnderServiceDropdownInHeader.find(text(button)).click();
     }
 
     //===============================checks==========================================
@@ -132,19 +133,19 @@ public class IndexPageSelenideCucumber {
         userIcon.shouldBe(visible);
     }
 
-    @And("Username should be 'PITER CHAILOVSKII'")
-    public void checkDisplayedUserName() {
-        userName.shouldHave(text("PITER CHAILOVSKII"));
+    @And("Username should be \"([^\"]*)\"")
+    public void checkDisplayedUserName(String name) {
+        userName.shouldHave(text(name));
     }
 
     @And("^The following elements should be displayed: (\\d+) pictures, (\\d+) texts under pictures, headline text and description$")
     public void checkInterfaceInTheIndexPage(int amountOfPictures, int amountOfTextsUnderPictures) {
 
-        $$(iconsInTheMiddleOfPage).shouldHaveSize(amountOfPictures);
-        $$(iconsInTheMiddleOfPage).forEach(SelenideElement::isDisplayed);
+        iconsInTheMiddleOfPage.shouldHaveSize(amountOfPictures);
+        iconsInTheMiddleOfPage.forEach(SelenideElement::isDisplayed);
 
-        $$(textsUnderIconsInTheMiddleOfPage).shouldHaveSize(amountOfTextsUnderPictures);
-        $$(textsUnderIconsInTheMiddleOfPage).forEach(SelenideElement::isDisplayed);
+        textsUnderIconsInTheMiddleOfPage.shouldHaveSize(amountOfTextsUnderPictures);
+        textsUnderIconsInTheMiddleOfPage.forEach(SelenideElement::isDisplayed);
 
         mainTitle.shouldBe(visible);
         mainText.shouldBe(visible);
@@ -160,11 +161,11 @@ public class IndexPageSelenideCucumber {
                                                 .collect(Collectors.toList());
 
         if (serviceDropdownInLeftPanelAvailability.getAttribute("class").equals("sub")) {
-            $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
-            $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts(optionsUpperCase));
+            subcategoriesUnderServiceDropdownInLeftPanel.shouldHaveSize(8);
+            subcategoriesUnderServiceDropdownInLeftPanel.shouldHave(texts(optionsUpperCase));
         } else {
-            $$(subcategoriesUnderServiceDropdownInHeader).shouldHaveSize(8);
-            $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts(optionsUpperCase));
+            subcategoriesUnderServiceDropdownInHeader.shouldHaveSize(8);
+            subcategoriesUnderServiceDropdownInHeader.shouldHave(texts(optionsUpperCase));
         }
     }
 }

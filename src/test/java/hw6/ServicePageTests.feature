@@ -5,7 +5,7 @@ Feature: Service Page tests
     Then Browser title should be 'Home Page'
     When I log in as user epam with password 1234
     Then The user icon should be displayed on the header
-    And Username should be 'PITER CHAILOVSKII'
+    And Username should be "PITER CHAILOVSKII"
     And The following elements should be displayed: 4 pictures, 4 texts under pictures, headline text and description
     When I click on "Service" button in Header
     Then Drop down should contain the following options:
