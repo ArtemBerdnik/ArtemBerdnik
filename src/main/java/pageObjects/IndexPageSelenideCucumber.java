@@ -38,6 +38,12 @@ public class IndexPageSelenideCucumber {
     @FindBy(css = "[class=\"profile-photo\"] > [ui = \"label\"]")
     private SelenideElement userName;
 
+    @FindBy(css = "[class='uui-navigation nav navbar-nav m-l8'] > li")
+    private ElementsCollection buttonsInHeader;
+
+    @FindBy(css = ".sidebar-menu > li")
+    private ElementsCollection buttonsInLeftMenu;
+
     @FindBy(css = "[class=\"uui-navigation nav navbar-nav m-l8\"]  a[class]")
     private SelenideElement serviceDropdownInHeader;
 
@@ -75,7 +81,7 @@ public class IndexPageSelenideCucumber {
     //===============================methods========================================
     @Given("I open the Home Page")
     public void openHomePage() {
-        if (!getWebDriver().getTitle().equals("Home Page")){
+        if (!getWebDriver().getTitle().equals("Home Page")) {
             open(HOME_PAGE.getUrl);
         }
     }
@@ -96,10 +102,10 @@ public class IndexPageSelenideCucumber {
         submitButton.click();
     }
 
-    @When("I open 'Different Elements Page' through the header menu Service")
-    public void openDifferentElementsPage() {
+    @When("I open \"([^\"]*)\" page through the header menu Service")
+    public void openDifferentElementsPage(String name) {
         serviceDropdownInHeader.click();
-        subcategoriesUnderServiceDropdownInHeader.get(6).click();
+        subcategoriesUnderServiceDropdownInHeader.findBy(text(name)).click();
     }
 
     public void openDatesPage() {
@@ -107,14 +113,16 @@ public class IndexPageSelenideCucumber {
         subcategoriesUnderServiceDropdownInHeader.get(1).click();
     }
 
-    @When("I click on Service subcategory in the left section")
-    public void clickServiceDropdownInLeftPanel() {
-        serviceDropdownInLeftPanel.click();
+    @When("I click on \"([^\"]*)\" subcategory in the left section")
+    public void clickServiceDropdownInLeftPanel(String name) {
+        buttonsInLeftMenu.findBy(text(name)).click();
+        //serviceDropdownInLeftPanel.click();
     }
 
-    @When("I click on \"Service\" button in Header")
-    public void clickServiceSubcategoryInHeader() {
-        serviceDropdownInHeader.click();
+    @When("I click on \"([^\"]*)\" button in Header")
+    public void clickServiceSubcategoryInHeader(String name) {
+        buttonsInHeader.findBy(text(name)).click();
+        //serviceDropdownInHeader.click();
     }
 
     @And("^I click on \"([^\"]*)\" button in Service dropdown$")
@@ -157,8 +165,8 @@ public class IndexPageSelenideCucumber {
 
         //Moved all words to uppercase
         List<String> optionsUpperCase = options.stream()
-                                                .map(String::toUpperCase)
-                                                .collect(Collectors.toList());
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
 
         if (serviceDropdownInLeftPanelAvailability.getAttribute("class").equals("sub")) {
             subcategoriesUnderServiceDropdownInLeftPanel.shouldHaveSize(8);

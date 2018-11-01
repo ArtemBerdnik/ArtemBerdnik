@@ -17,7 +17,7 @@ Feature: Service Page tests
       | Table With Pages   |
       | Different Elements |
       | Performance        |
-    When I click on Service subcategory in the left section
+    When I click on "Service" subcategory in the left section
     Then Drop down should contain the following options:
       | Support            |
       | Dates              |
@@ -27,7 +27,7 @@ Feature: Service Page tests
       | Table With Pages   |
       | Different Elements |
       | Performance        |
-    When I open 'Different Elements Page' through the header menu Service
+    When I open "Different Elements" page through the header menu Service
     Then 'Different Elements Page' should be opened
     And The following elements should be displayed on 'Different elements page': 4 checkboxes, 4 radiobuttons, dropdown with colors, 2 buttons
     And Right Section should be displayed

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum SubcategoriesUnderServiceDropdown {
-    SUPPORT("SUPPORT"),
-    DATES("DATES"),
-    COMPLEX_TABLE("COMPLEX TABLE"),
-    SIMPLE_TABLE("SIMPLE TABLE"),
-    USER_TABLE("USER TABLE"),
-    TABLE_WITH_PAGES("TABLE WITH PAGES"),
-    DIFFERENT_ELEMENTS("DIFFERENT ELEMENTS"),
-    PERFORMANCE("PERFORMANCE");
+    SUPPORT("Support"),
+    DATES("Dates"),
+    COMPLEX_TABLE("Complex table"),
+    SIMPLE_TABLE("Simple table"),
+    USER_TABLE("User table"),
+    TABLE_WITH_PAGES("Table with pages"),
+    DIFFERENT_ELEMENTS("Different Elements"),
+    PERFORMANCE("Performance");
 
     public String name;
 
