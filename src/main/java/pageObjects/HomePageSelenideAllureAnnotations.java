@@ -1,18 +1,20 @@
 package pageObjects;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import enums.Users;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static enums.SubcategoriesUnderServiceDropdown.*;
+import static enums.Urls.HOME_PAGE;
 import static org.testng.Assert.assertEquals;
 
-public class IndexPageSelenideAllureAnnotations {
+public class HomePageSelenideAllureAnnotations {
 
     @FindBy(css = ".profile-photo")
     private SelenideElement userIcon;
@@ -23,7 +25,7 @@ public class IndexPageSelenideAllureAnnotations {
     @FindBy(css = "[id = 'Password']")
     private SelenideElement password;
 
-    @FindBy(css = "[type = '[type = 'submit']']")
+    @FindBy(css = "[type = 'submit']")
     private SelenideElement submitButton;
 
     @FindBy(css = "[class='profile-photo'] > [ui = 'label']")
@@ -36,32 +38,37 @@ public class IndexPageSelenideAllureAnnotations {
     private SelenideElement ServiceDropdownInHeader;
 
     @FindBy(css = "[class='dropdown open'] li")
-    private List<SelenideElement> subcategoriesUnderServiceDropdownInHeader;
+    private ElementsCollection subcategoriesUnderServiceDropdownInHeader;
 
     @FindBy(css = "li[class='menu-title'][index='3']")
     private SelenideElement ServiceDropdownInLeftPanel;
 
     @FindBy(css = "[class='sub'] span")
-    private List<SelenideElement> subcategoriesUnderServiceDropdownInLeftPanel;
+    private ElementsCollection subcategoriesUnderServiceDropdownInLeftPanel;
 
     //===============================methods========================================
     @Step
-    public void login(String name, String pass) {
+    public void openHomePage() {
+        open(HOME_PAGE.getUrl);
+    }
+
+    @Step
+    public void login(Users user) {
         userIcon.click();
-        login.sendKeys(name);
-        password.sendKeys(pass);
+        login.sendKeys(user.login);
+        password.sendKeys(user.password);
         submitButton.click();
     }
 
     @Step
     public void openDifferentElementsPage() {
         ServiceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).get(6).click();
+        subcategoriesUnderServiceDropdownInHeader.findBy(text(DIFFERENT_ELEMENTS.name)).click();
     }
 
     public void openDatesPage() {
         ServiceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).get(1).click();
+        subcategoriesUnderServiceDropdownInHeader.findBy(text(DATES.name)).click();
     }
 
     //===============================checks==========================================
@@ -72,20 +79,20 @@ public class IndexPageSelenideAllureAnnotations {
 
     @Step
     public void checkDisplayedUserName() {
-        userName.shouldHave(text("PITaER CHAILOVSKII"));
+        userName.shouldHave(text("PITER CHAILOVSKII"));
     }
 
     @Step
     public void checkSubcategoriesUnderServiceDropdownInHeader() {
         ServiceDropdownInHeader.click();
-        $$(subcategoriesUnderServiceDropdownInHeader).shouldHaveSize(8);
-        $$(subcategoriesUnderServiceDropdownInHeader).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+        subcategoriesUnderServiceDropdownInHeader.shouldHaveSize(8);
+        subcategoriesUnderServiceDropdownInHeader.shouldHave(texts(getSubcategoriesNames()));
     }
 
     @Step
     public void checkSubcategoriesUnderServiceDropdownInLeftPanel() {
         ServiceDropdownInLeftPanel.click();
-        $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHaveSize(8);
-        $$(subcategoriesUnderServiceDropdownInLeftPanel).shouldHave(texts("SUPPORT", "DATES", "COMPLEX TABLE", "SIMPLE TABLE", "USER TABLE", "TABLE WITH PAGES", "DIFFERENT ELEMENTS", "PERFORMANCE"));
+        subcategoriesUnderServiceDropdownInLeftPanel.shouldHaveSize(8);
+        subcategoriesUnderServiceDropdownInLeftPanel.shouldHave(texts(getSubcategoriesNames()));
     }
 }

@@ -5,22 +5,16 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import listeners.AllureAttachmentListener;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pageObjects.DifferentElementsSelenide;
 import pageObjects.DifferentElementsSelenideAllureAnnotations;
-import pageObjects.HomePageSelenide;
-import pageObjects.IndexPageSelenideAllureAnnotations;
+import pageObjects.HomePageSelenideAllureAnnotations;
 
-import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static enums.Checkboxes.WATER;
 import static enums.Checkboxes.WIND;
 import static enums.Colors.YELLOW;
 import static enums.Radiobuttons.SELEN;
-import static enums.Urls.HOME_PAGE;
 import static enums.Users.PITER_CHAILOVSKII;
 
 @Feature("Service Page")
@@ -28,13 +22,13 @@ import static enums.Users.PITER_CHAILOVSKII;
 @Listeners(AllureAttachmentListener.class)
 public class ServicePageInterfaceCheck extends TestNGBaseHW5 {
 
-    private HomePageSelenide homePage;
-    private DifferentElementsSelenide differentElementsPage;
+    private HomePageSelenideAllureAnnotations homePage;
+    private DifferentElementsSelenideAllureAnnotations differentElementsPage;
 
     @BeforeClass
     public void beforeClass() {
-        homePage = page(HomePageSelenide.class);
-        differentElementsPage = page(DifferentElementsSelenide.class);
+        homePage = page(HomePageSelenideAllureAnnotations.class);
+        differentElementsPage = page(DifferentElementsSelenideAllureAnnotations.class);
     }
 
     @Test
