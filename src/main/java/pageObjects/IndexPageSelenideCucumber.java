@@ -32,10 +32,10 @@ public class IndexPageSelenideCucumber {
     @FindBy(css = "[id = 'Password']")
     private SelenideElement password;
 
-    @FindBy(css = "[type = 'fillData']")
+    @FindBy(css = "[type = 'submit']")
     private SelenideElement submitButton;
 
-    @FindBy(css = "[class=\"profile-photo\"] > [ui = \"label\"]")
+    @FindBy(css = "[class='profile-photo'] > [ui = 'label']")
     private SelenideElement userName;
 
     @FindBy(css = "[class='uui-navigation nav navbar-nav m-l8'] > li")
@@ -44,19 +44,19 @@ public class IndexPageSelenideCucumber {
     @FindBy(css = ".sidebar-menu > li")
     private ElementsCollection buttonsInLeftMenu;
 
-    @FindBy(css = "[class=\"uui-navigation nav navbar-nav m-l8\"]  a[class]")
+    @FindBy(css = "[class='uui-navigation nav navbar-nav m-l8']  a[class]")
     private SelenideElement serviceDropdownInHeader;
 
-    @FindBy(css = "[class=\"dropdown open\"] li")
+    @FindBy(css = "[class='dropdown open'] li")
     private ElementsCollection subcategoriesUnderServiceDropdownInHeader;
 
-    @FindBy(css = "li[class=\"menu-title\"][index=\"3\"]")
+    @FindBy(css = "li[class='menu-title'][index='3']")
     private SelenideElement serviceDropdownInLeftPanel;
 
-    @FindBy(css = "li[class=\"menu-title\"][index=\"3\"] > ul")
+    @FindBy(css = "li[class='menu-title'][index='3'] > ul")
     private SelenideElement serviceDropdownInLeftPanelAvailability;
 
-    @FindBy(css = "[class=\"sub\"] span")
+    @FindBy(css = "[class='sub'] span")
     private ElementsCollection subcategoriesUnderServiceDropdownInLeftPanel;
 
     @FindBy(css = ".benefit-icon")
