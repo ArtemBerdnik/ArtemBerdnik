@@ -26,7 +26,7 @@ public class HomePageSelenide {
     @FindBy(css = "[id = 'Password']")
     private SelenideElement password;
 
-    @FindBy(css = "[type = '[type = 'submit']']")
+    @FindBy(css = "[type = 'submit']")
     private SelenideElement submitButton;
 
     @FindBy(css = "[class='profile-photo'] > [ui = 'label']")
