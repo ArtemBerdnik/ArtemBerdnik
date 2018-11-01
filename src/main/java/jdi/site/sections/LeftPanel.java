@@ -20,14 +20,19 @@ public class LeftPanel extends Section {
         for (String s : data.getElements()) {
             elements.append(s).append(", ");
         }
+        StringBuilder vegetableRow = new StringBuilder("Vegetables: ");
+        for (String s : data.getVegetables()) {
+            vegetableRow.append(s).append(", ");
+        }
+
         String colorRow = "Color: " + data.getColor();
         String metalRow = "Metal: " + data.getMetals();
-        String vegetableRow = "Vegetables: " + data.getVegetables()[0];
+
         return summaryRow + ", " +
                 elements + "" +
                 colorRow + ", " +
                 metalRow + ", " +
-                vegetableRow;
+                vegetableRow.substring(0, vegetableRow.length()-2);
     }
 
     @Step

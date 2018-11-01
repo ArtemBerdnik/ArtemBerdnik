@@ -1,4 +1,4 @@
-package hw7;
+package hw8;
 
 import base.JDITestsInit;
 import jdi.entities.MetalsAndColorsData;
