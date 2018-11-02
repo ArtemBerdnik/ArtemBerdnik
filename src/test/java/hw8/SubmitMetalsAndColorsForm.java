@@ -13,14 +13,20 @@ public class SubmitMetalsAndColorsForm extends JDITestsInit {
     public void loginTest(MetalsAndColorsData newData) {
         //1. Login on jdi site as User
         homePage.open();
+        //TODO shold be parametrised
         login();
         homePage.checkOpened();
 
         //2. Open Metals & Colors page by Header menu
+        // TODO this will be better with parameter in order to 
+        // avoid lots of almost the same methods
         openMetalsAndColorsPage();
         metalsAndColors.checkOpened();
+        // !TODO
 
         //3. Fill form Metals & Colors by data below:
+        // TODO Quite strange method's name.
+        // Is this possible to fill OLD data or smth like this ?
         metalsAndColors.fillNewDataToMetalColorForm(newData);
 
         //4. Submit form Metals & Colors
