@@ -15,6 +15,7 @@ public class MetalsAndColorsDataProvider extends JDITestsInit {
     @DataProvider
     public static Object[][] simpleDataProvider() throws FileNotFoundException {
         Gson gson = new Gson();
+        // TODO Code convention !
         JsonObject METALS_AND_COLORS_JSON = parseJson("src\\main\\resources\\JDI_ex8_metalsColorsDataSet.json");
         Object[][] result = new Object[METALS_AND_COLORS_JSON.size()][1];
 
