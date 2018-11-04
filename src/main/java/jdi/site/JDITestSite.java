@@ -10,6 +10,8 @@ import jdi.site.pages.HomePage;
 import jdi.site.pages.MetalsAndColors;
 import jdi.site.sections.Header;
 
+import static org.testng.Assert.assertEquals;
+
 @JSite("https://epam.github.io/JDI/")
 public class JDITestSite extends WebSite {
     public static HomePage homePage;
@@ -26,5 +28,10 @@ public class JDITestSite extends WebSite {
     @Step
     public static void openPageUnderServiceDropdown(MenuEnum page) {
         header.pagesUnderServiceDropdown.select(page.menuButton);
+    }
+
+    @Step
+    public static void checkLoggedUser(User user) {
+        assertEquals(header.profilePhoto.getText(), user.getUserName());
     }
 }

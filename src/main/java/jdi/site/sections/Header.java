@@ -12,16 +12,8 @@ import jdi.enums.MenuEnum;
 public class Header extends Section {
 
     @Css(".profile-photo")
-    private static Button profilePhoto;
-
-    @Css(".logout button")
-    private static Button logoutButton;
+    public Button profilePhoto;
 
     @Css("[class='uui-navigation nav navbar-nav m-l8'] a")
     public Menu<MenuEnum> pagesUnderServiceDropdown;
-
-    public static void logout() {
-        profilePhoto.click();
-        logoutButton.click();
-    }
 }

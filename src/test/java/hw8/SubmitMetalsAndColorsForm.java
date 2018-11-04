@@ -16,7 +16,7 @@ public class SubmitMetalsAndColorsForm extends JDITestsInit {
         //1. Login on jdi site as User
         homePage.open();
         login(PITER_CHAILOVSKI);
-        homePage.checkOpened();
+        checkLoggedUser(PITER_CHAILOVSKI);
 
         //2. Open Metals & Colors page by Header menu
         //openMetalsAndColorsPage();
