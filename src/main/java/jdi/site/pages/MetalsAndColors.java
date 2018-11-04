@@ -14,8 +14,8 @@ public class MetalsAndColors extends WebPage {
     private LeftPanel leftPanel;
 
     @Step
-    public void fillNewDataToMetalColorForm(MetalsAndColorsData newData) {
-        metalColorForm.fillData(newData);
+    public void fillInFormsWithData(MetalsAndColorsData data) {
+        metalColorForm.fillData(data);
     }
 
     @Step

@@ -1,9 +1,23 @@
 package jdi.entities;
 
-import com.epam.commons.DataClass;
+public class User {
 
-public class User extends DataClass {
+    private String login;
+    private String password;
 
-    public String name = "epam";
-    public String password = "1234";
+    private User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
+    public static User PITER_CHAILOVSKI = new User("epam", "1234");
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 }
