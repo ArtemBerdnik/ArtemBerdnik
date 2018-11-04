@@ -5,7 +5,7 @@ import jdi.entities.MetalsAndColorsData;
 import jdi.utils.MetalsAndColorsDataProvider;
 import org.testng.annotations.Test;
 
-import static jdi.entities.User.PITER_CHAILOVSKI;
+import static jdi.entities.User.PITER_CHAILOVSKII;
 import static jdi.enums.MenuEnum.METALS_AND_COLORS;
 import static jdi.site.JDITestSite.*;
 
@@ -15,8 +15,8 @@ public class SubmitMetalsAndColorsForm extends JDITestsInit {
     public void loginTest(MetalsAndColorsData data) {
         //1. Login on jdi site as User
         homePage.open();
-        login(PITER_CHAILOVSKI);
-        checkLoggedUser(PITER_CHAILOVSKI);
+        login(PITER_CHAILOVSKII);
+        checkLoggedUser(PITER_CHAILOVSKII);
 
         //2. Open Metals & Colors page by Header menu
         //openMetalsAndColorsPage();

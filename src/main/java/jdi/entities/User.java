@@ -12,7 +12,7 @@ public class User {
         this.userName = userName;
     }
 
-    public static User PITER_CHAILOVSKI = new User("epam", "1234", "PITER CHAILOVSKII");
+    public static User PITER_CHAILOVSKII = new User("epam", "1234", "PITER CHAILOVSKII");
 
     public String getLogin() {
         return login;
