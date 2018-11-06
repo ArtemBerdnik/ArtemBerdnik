@@ -105,6 +105,13 @@
             <artifactId>jackson-core</artifactId>
             <version>2.9.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
