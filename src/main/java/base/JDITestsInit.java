@@ -20,7 +20,6 @@ public class JDITestsInit extends TestNGBase {
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-//        logout();
         metalsAndColors.clearCache();
     }
 }
