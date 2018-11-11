@@ -1,0 +1,22 @@
+1. Rewrite (complete) Driver using “singleton” pattern. Are there any advantages?
+Done.
+We can reach a driver instance from all tests. Also, we are able to control driver creation/modification.
+
+2. Suggest improvements for .properties reading. What are the purposes?
+I'd suggest to replace inheritance of TestProperties.class with Driver.class with delegation of TestProperties object
+as declared field in Driver.class. This will prevent our Driver from having unnecessary methods and variables
+from the parent class.
+
+3. Add checks of other fields and their titles (Contact Name, Contact phone) in “native” test
+Done.
+1. Added checks for field’s titles.
+2. Added check for screen title.
+3. Added checks for fields are displayed.
+
+*4. Optional: Add keyboard presence check in “native” test.
+Not done (since optional) due to lack of time.
+
+*5. Which checks would you place in the “web” test?
+1. Check the header logo is displayed
+2. Check the response coming from the target page
+3. Check there are 3 sections in home-panels presented
