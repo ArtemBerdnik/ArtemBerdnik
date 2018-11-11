@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class TestProperties {
     String currentPropertyFile;
+    String resourcePath = "./src/test/resources/";
     Properties currentProps = new Properties();
 
     protected void setPropertyFile(PropertiesFile propertyFile){
@@ -13,7 +14,7 @@ public class TestProperties {
     }
 
     Properties getCurrentProps() throws IOException {
-        FileInputStream in = new FileInputStream(currentPropertyFile);
+        FileInputStream in = new FileInputStream(resourcePath + currentPropertyFile);
         currentProps.load(in);
         in.close();
         return currentProps;

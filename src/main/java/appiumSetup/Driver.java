@@ -1,6 +1,7 @@
 package appiumSetup;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -63,8 +64,8 @@ public class Driver extends TestProperties {
         } else {
             throw new Exception("Unclear type of mobile app");
         }
-        // Init driver with new AppiumDriver object
-        //if (driverSingle == null) driverSingle = new AppiumDriver(new URL(DRIVER), capabilities);
+        // Init driver with new AndroidDriver object
+        if (driverSingle == null) driverSingle = new AndroidDriver(new URL(DRIVER), capabilities);
 
         // Set an object to handle timeouts
         if (waitSingle == null) waitSingle = new WebDriverWait(driver(), 10);

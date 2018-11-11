@@ -5,8 +5,8 @@ public enum PropertiesFile {
     /**
      * Enum for building property name with respect to the selected test configuration
      */
-    NATIVE("nativetests"),
-    WEB("webtests");
+    NATIVE("nativeApp"),
+    WEB("web");
 
     private String currentAppType;
 
