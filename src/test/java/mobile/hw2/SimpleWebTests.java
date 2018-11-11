@@ -7,25 +7,26 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import appiumSetup.PropertiesFile;
 import io.restassured.RestAssured;
+
 import java.util.List;
 
 @Test(groups = "web")
-public class SimpleWebTests extends Hooks{
+public class SimpleWebTests extends Hooks {
 
     /**
-     * Constructor to pass PropertyFile type into Hooks to run proper prepareDriver() in @BeforeSuite.
+     * Send PropertyFile in the Hooks to run correct prepareDriver() in @BeforeSuite.
      */
     protected SimpleWebTests() {
         super(PropertiesFile.WEB);
     }
 
-    @Test(description = "Open website")
+    @Test(description = "Open a site")
     public void webTest() throws Exception {
         //Assert that page returns "200" status code
-        Assert.assertEquals(RestAssured.get(SUT).statusCode(),200);
+        Assert.assertEquals(RestAssured.get(SUT).statusCode(), 200);
 
         driver().get(SUT);
-        driverWait().until(ExpectedConditions.urlToBe(SUT+"/"));
+        driverWait().until(ExpectedConditions.urlToBe(SUT + "/"));
 
         //Get header element
         WebElement header_logo = driver().findElement(By.cssSelector("h1"));
@@ -37,9 +38,9 @@ public class SimpleWebTests extends Hooks{
         List<WebElement> sections = driver().findElements(By.cssSelector(".home-panel"));
 
         //Assert there are 3 home-panels
-        Assert.assertEquals(sections.size(),3);
+        Assert.assertEquals(sections.size(), 3);
         //Assert each of the sections is displayed
-        for(WebElement section : sections){
+        for (WebElement section : sections) {
             Assert.assertTrue(section.isDisplayed());
         }
         System.out.println("Site opening done");

@@ -9,7 +9,7 @@ public class TestProperties {
     String resourcePath = "./src/test/resources/";
     Properties currentProps = new Properties();
 
-    protected void setPropertyFile(PropertiesFile propertyFile){
+    protected void setPropertyFile(PropertiesFile propertyFile) {
         currentPropertyFile = propertyFile.getFileName();
     }
 
@@ -21,7 +21,7 @@ public class TestProperties {
     }
 
     protected String getProp(String propKey) throws IOException {
-        if(!currentProps.containsKey(propKey)) currentProps = getCurrentProps();
+        if (!currentProps.containsKey(propKey)) currentProps = getCurrentProps();
         return currentProps.getProperty(propKey, null);
     }
 }
