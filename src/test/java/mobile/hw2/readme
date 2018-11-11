@@ -13,10 +13,10 @@ Done.
 2. Added check for screen title.
 3. Added checks for fields are displayed.
 
-*4. Optional: Add keyboard presence check in “native” test.
+4. Optional: Add keyboard presence check in “native” test.
 Not done (since optional) due to lack of time.
 
-*5. Which checks would you place in the “web” test?
+5. Which checks would you place in the “web” test?
 1. Check the header logo is displayed
 2. Check the response coming from the target page
 3. Check there are 3 sections in home-panels presented
