@@ -22,7 +22,7 @@ public class CucumberTestngRunner extends AbstractTestNGCucumberTests {
 
     @AfterMethod
     public void afterMethod() {
-        getWebDriver().manage().deleteAllCookies();
+        //getWebDriver().manage().deleteAllCookies();
         close();
     }
 }
