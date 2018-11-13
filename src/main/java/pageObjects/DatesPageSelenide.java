@@ -24,12 +24,11 @@ public class DatesPageSelenide {
 
 
     //===============================methods========================================
-    @Step
+
     private double getStep() {
         return (double) slider.getSize().getWidth() / 100;
     }
 
-    @Step
     private void moveHandler(SelenideElement slider, double position) {
         double currentPosition = Double.parseDouble(slider.text());
         double offset = (position - currentPosition > 0) ? (position - currentPosition) * getStep() : (position - currentPosition - 1) * getStep();

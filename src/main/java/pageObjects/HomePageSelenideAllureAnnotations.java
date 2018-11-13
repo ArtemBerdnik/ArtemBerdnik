@@ -66,10 +66,6 @@ public class HomePageSelenideAllureAnnotations {
         subcategoriesUnderServiceDropdownInHeader.findBy(text(DIFFERENT_ELEMENTS.name)).click();
     }
 
-    public void openDatesPage() {
-        ServiceDropdownInHeader.click();
-        subcategoriesUnderServiceDropdownInHeader.findBy(text(DATES.name)).click();
-    }
 
     //===============================checks==========================================
     @Step
