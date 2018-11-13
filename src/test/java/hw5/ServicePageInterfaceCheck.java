@@ -13,6 +13,7 @@ import pageObjects.HomePageSelenideAllureAnnotations;
 import static com.codeborne.selenide.Selenide.page;
 import static enums.Checkboxes.WATER;
 import static enums.Checkboxes.WIND;
+import static enums.Colors.RED;
 import static enums.Colors.YELLOW;
 import static enums.Radiobuttons.SELEN;
 import static enums.Users.PITER_CHAILOVSKII;
@@ -79,7 +80,7 @@ public class ServicePageInterfaceCheck extends TestNGBaseHW5 {
         differentElementsPage.selectColorInDropdown(YELLOW);
 
         //16. Assert that for dropdown there is a log row and value is corresponded to the selected value. 
-        differentElementsPage.checkInfoInLogAboutSelectedColor(YELLOW);
+        differentElementsPage.checkInfoInLogAboutSelectedColor(RED);
 
         //17. Unselect and assert checkboxes
         differentElementsPage.selectCheckboxes(WATER, WIND);
