@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import enums.Checkboxes;
 import enums.Colors;
 import enums.Radiobuttons;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
@@ -52,17 +53,20 @@ public class DifferentElementsSelenide {
 
     //===============================methods========================================
 
+    @Step
     public void selectCheckboxes(Checkboxes... checkboxes) {
         for (Checkboxes checkbox : checkboxes) {
             checkboxesOnDifferentElementsPage.findBy(text(checkbox.checkboxValue)).click();
         }
     }
 
+    @Step
     public void selectRadiobutton(Radiobuttons radiobutton) {
         radiobuttonsOnDifferentElementsPage.findBy(text(radiobutton.radiobuttonValue)).click();
         statusOfRadiobuttons.get(radiobutton.radiobuttonPosition).shouldBe(selected);
     }
 
+    @Step
     public void selectColorInDropdown(Colors color) {
         dropdownWithColors.click();
         availableColors.findBy(text(color.colorValue)).click();
@@ -70,6 +74,7 @@ public class DifferentElementsSelenide {
 
     //===============================checks==========================================
 
+    @Step
     public void checkControlsOnDifferentElementsPage() {
         checkboxesOnDifferentElementsPage.shouldHaveSize(4);
         checkboxesOnDifferentElementsPage.shouldHave(texts(getCheckboxesNames()));
@@ -82,14 +87,17 @@ public class DifferentElementsSelenide {
         button.isDisplayed();
     }
 
+    @Step
     public void checkRightSectionIsDisplayed() {
         rightSection.isDisplayed();
     }
 
+    @Step
     public void checkLeftSectionIsDisplayed() {
         leftSection.isDisplayed();
     }
 
+    @Step
     public void checkInfoInLogAboutSelectedCheckbox(Checkboxes... checkboxes) {
         for (Checkboxes checkbox : checkboxes) {
             if (!statusOfcheckboxes.get(checkbox.checkboxPosition).isSelected()) {
@@ -100,10 +108,12 @@ public class DifferentElementsSelenide {
         }
     }
 
+    @Step
     public void checkInfoInLogAboutSelectedRadiobutton(Radiobuttons radiobutton) {
         firstRowInLog.shouldHave(text("metal: value changed to " + radiobutton.radiobuttonValue));
     }
 
+    @Step
     public void checkInfoInLogAboutSelectedColor(Colors color) {
         firstRowInLog.shouldHave(text("Colors: value changed to " + color.colorValue));
     }

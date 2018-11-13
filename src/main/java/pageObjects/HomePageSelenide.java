@@ -3,6 +3,7 @@ package pageObjects;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import enums.Users;
+import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 
 import static com.codeborne.selenide.CollectionCondition.texts;
@@ -48,10 +49,12 @@ public class HomePageSelenide {
     private ElementsCollection subcategoriesUnderServiceDropdownInLeftPanel;
 
     //===============================methods========================================
+    @Step
     public void openHomePage() {
         open(HOME_PAGE.getUrl);
     }
 
+    @Step
     public void login(Users user) {
         userIcon.click();
         login.sendKeys(user.login);
@@ -59,31 +62,37 @@ public class HomePageSelenide {
         submitButton.click();
     }
 
+    @Step
     public void openDifferentElementsPage() {
         ServiceDropdownInHeader.click();
         subcategoriesUnderServiceDropdownInHeader.findBy(text(DIFFERENT_ELEMENTS.name)).click();
     }
 
+    @Step
     public void openDatesPage() {
         ServiceDropdownInHeader.click();
         subcategoriesUnderServiceDropdownInHeader.findBy(text(DATES.name)).click();
     }
 
     //===============================checks==========================================
+    @Step
     public void checkTitle() {
         assertEquals(getWebDriver().getTitle(), "Home Page");
     }
 
+    @Step
     public void checkDisplayedUserName() {
         userName.shouldHave(text("PITER CHAILOVSKII"));
     }
 
+    @Step
     public void checkSubcategoriesUnderServiceDropdownInHeader() {
         ServiceDropdownInHeader.click();
         subcategoriesUnderServiceDropdownInHeader.shouldHaveSize(8);
         subcategoriesUnderServiceDropdownInHeader.shouldHave(texts(getSubcategoriesNames()));
     }
 
+    @Step
     public void checkSubcategoriesUnderServiceDropdownInLeftPanel() {
         ServiceDropdownInLeftPanel.click();
         subcategoriesUnderServiceDropdownInLeftPanel.shouldHaveSize(8);

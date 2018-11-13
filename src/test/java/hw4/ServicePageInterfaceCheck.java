@@ -1,7 +1,11 @@
 package hw4;
 
 import base.TestNGBaseHW4;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import listeners.AllureAttachmentListener;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pageObjects.DifferentElementsSelenide;
 import pageObjects.HomePageSelenide;
@@ -13,7 +17,9 @@ import static enums.Colors.YELLOW;
 import static enums.Radiobuttons.SELEN;
 import static enums.Users.PITER_CHAILOVSKII;
 
-
+@Feature("Service Page")
+@Story("Different Elements Page Testing")
+@Listeners(AllureAttachmentListener.class)
 public class ServicePageInterfaceCheck extends TestNGBaseHW4 {
 
     private HomePageSelenide homePage;
