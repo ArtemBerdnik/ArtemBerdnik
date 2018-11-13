@@ -8,11 +8,8 @@ import enums.Radiobuttons;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static enums.Checkboxes.getCheckboxesNames;
 import static enums.Radiobuttons.getRadiobuttonsNames;
@@ -60,20 +57,20 @@ public class DifferentElementsSelenideAllureAnnotations {
     @Step
     public void selectCheckboxes(Checkboxes... checkboxes) {
         for (Checkboxes checkbox : checkboxes) {
-            $$(checkboxesOnDifferentElementsPage).findBy(text(checkbox.checkboxValue)).click();
+            checkboxesOnDifferentElementsPage.findBy(text(checkbox.checkboxValue)).click();
         }
     }
 
     @Step
     public void selectRadiobutton(Radiobuttons radiobutton) {
-        $$(radiobuttonsOnDifferentElementsPage).findBy(text(radiobutton.radiobuttonValue)).click();
-        $$(statusOfRadiobuttons).get(radiobutton.radiobuttonPosition).shouldBe(selected);
+        radiobuttonsOnDifferentElementsPage.findBy(text(radiobutton.radiobuttonValue)).click();
+        statusOfRadiobuttons.get(radiobutton.radiobuttonPosition).shouldBe(selected);
     }
 
     @Step
     public void selectColorInDropdown(Colors color) {
         dropdownWithColors.click();
-        $$(availableColors).findBy(text(color.colorValue)).click();
+        availableColors.findBy(text(color.colorValue)).click();
     }
 
     //===============================checks==========================================
