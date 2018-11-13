@@ -1,0 +1,84 @@
+package api.core;
+
+import api.enums.Language;
+import api.enums.SoapActions;
+import api.enums.TestWordsEng;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+import java.util.HashMap;
+
+import static api.core.YandexSpellerConstants.*;
+
+public class YandexSpellerSOAP {
+
+    static RequestSpecification spellerSOAPreqSpec = new RequestSpecBuilder()
+            .addHeader("Accept-Encoding", "gzip,deflate")
+            .setContentType("text/xml;charset=UTF-8")
+            .addHeader("Host", "speller.yandex.net")
+            .setBaseUri("http://speller.yandex.net/services/spellservice")
+            .build();
+
+    //builder pattern
+    private YandexSpellerSOAP(){}
+
+    private HashMap<String, String> params = new HashMap<>();
+    private SoapActions action = SoapActions.CHECK_TEXT;
+
+    public static class SOAPBuilder {
+        YandexSpellerSOAP soapReq;
+
+        private SOAPBuilder(YandexSpellerSOAP soap) {
+            this.soapReq = soap;
+        }
+
+        public YandexSpellerSOAP.SOAPBuilder action(SoapActions action){
+            soapReq.action = action;
+            return this;
+        }
+
+        public YandexSpellerSOAP.SOAPBuilder text(String text) {
+            soapReq.params.put(PARAM_TEXT, text);
+            return this;
+        }
+
+        public YandexSpellerSOAP.SOAPBuilder options(String options) {
+            soapReq.params.put(PARAM_OPTIONS, options);
+            return this;
+        }
+
+        public YandexSpellerSOAP.SOAPBuilder language(Language language) {
+            soapReq.params.put(PARAM_LANG,   language.langCode());
+            return this;
+        }
+
+        public Response callSOAP() {
+            String soapBody="<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:spel=\"http://speller.yandex.net/services/spellservice\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <spel:" + soapReq.action.getReqName() + " lang=" + QUOTES + (soapReq.params.getOrDefault(PARAM_LANG, "en")) + QUOTES
+                    +  " options=" + QUOTES + (soapReq.params.getOrDefault(PARAM_OPTIONS, "0"))+ QUOTES
+                    + " format=\"\">\n" +
+                    "         <spel:text>"+ (soapReq.params.getOrDefault(PARAM_TEXT, TestWordsEng.BROTHER.wrongVer())) + "</spel:text>\n" +
+                    "      </spel:"+ soapReq.action.getReqName() + ">\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+
+
+            return RestAssured.with()
+                    .spec(spellerSOAPreqSpec)
+                    .header("SOAPAction", "http://speller.yandex.net/services/spellservice/" + soapReq.action.getMethod())
+                    .body(soapBody)
+                    .log().all().with()
+                    .post().prettyPeek();
+        }
+    }
+
+
+    public static SOAPBuilder with() {
+        YandexSpellerSOAP soap = new YandexSpellerSOAP();
+        return new SOAPBuilder(soap);
+    }
+}
