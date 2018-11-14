@@ -1,200 +1,154 @@
 package api;
 
-import api.core.YandexSpellerApi;
 import api.enums.Language;
-import api.enums.TestWordsEng;
 import beans.YandexSpellerAnswer;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import static api.core.YandexSpellerApi.getYandexSpellerAnswers;
 import static api.core.YandexSpellerApi.with;
 import static api.core.YandexSpellerConstants.*;
-import static api.enums.TestWordsEng.BROTHER;
-import static api.enums.TestWordsEng.LAPTOP;
-import static api.enums.TestWordsEng.MOTHER;
+import static api.enums.ErrorCodes.*;
+import static api.enums.Language.EN;
+import static api.enums.Language.INSISTING_LANGUAGE;
+import static api.enums.Options.*;
+import static api.enums.TestWordsEng.*;
 import static api.enums.TestWordsRus.CITY;
-import static api.enums.TestWordsRus.TEST;
-import static org.apache.commons.lang3.StringUtils.repeat;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.lessThan;
 import static org.testng.Assert.assertTrue;
 
 public class TestYandexSpellerJSON {
 
-    // simple usage of RestAssured library: direct request call and response validations in test.
-
     @Test
     public void checkSeveralWordsWithMisspelling() {
-        List<List<YandexSpellerAnswer>> answers = getYandexSpellerAnswers(with()
-                            .text(BROTHER.wrongVer(), LAPTOP.wrongVer())
-                            .language(Language.EN)
-                            .callApi());
+        List<List<YandexSpellerAnswer>> responses = getYandexSpellerAnswers(with()
+                .text(BROTHER.wrongVer(), LAPTOP.wrongVer())
+                .language(EN)
+                .callApi());
 
-        assertTrue(answers.get(0).get(0).s.contains(BROTHER.corrVer()));
-        assertTrue(answers.get(1).get(0).s.contains(LAPTOP.corrVer()));
+        assertTrue(responses.get(0).get(0).s.contains(BROTHER.corrVer()));
+        assertTrue(responses.get(1).get(0).s.contains(LAPTOP.corrVer()));
 
     }
 
     @Test
-    public void simpleSpellerApiCall() {
+    public void checkOptionToIgnoreDigits() {
+        List<List<YandexSpellerAnswer>> responsesWithoutOptions = getYandexSpellerAnswers(with()
+                .text(WORD_WITH_LEADING_DIGITS.wrongVer(), WORD_WITH_ENDING_DIGITS.wrongVer())
+                .language(EN)
+                .callApi());
+
+        assertTrue(responsesWithoutOptions.get(0).get(0).s.contains(WORD_WITH_LEADING_DIGITS.corrVer()));
+
+        //This assert will fail (a bug in API might be?)
+        assertTrue(responsesWithoutOptions.get(1).get(0).s.contains(WORD_WITH_ENDING_DIGITS.corrVer()));
+
+        List<List<YandexSpellerAnswer>> responsesWithOptions = getYandexSpellerAnswers(with()
+                .text(WORD_WITH_LEADING_DIGITS.wrongVer(), WORD_WITH_ENDING_DIGITS.wrongVer())
+                .language(EN)
+                .options(IGNORE_DIGITS.code)
+                .callApi());
+
+        assertTrue(responsesWithOptions.get(0).isEmpty());
+        assertTrue(responsesWithOptions.get(1).isEmpty());
+    }
+
+    @Test
+    public void checkMultiplyOptionsForRequest() {
+        String option = sumOfOptions(IGNORE_CAPITALIZATION, IGNORE_URLS);
+        List<List<YandexSpellerAnswer>> responsesWithoutOptions = getYandexSpellerAnswers(with()
+                .text(WORD_WITH_URL.wrongVer(), WORD_WITH_CAPITALIZATION.wrongVer())
+                .language(EN)
+                .callApi());
+
+        //2 assertions below will fail due to an empty response from the Speller
+        assertTrue(responsesWithoutOptions.get(0).get(0).s.contains(WORD_WITH_URL.corrVer()));
+        assertTrue(responsesWithoutOptions.get(1).get(0).s.contains(WORD_WITH_CAPITALIZATION.corrVer()));
+
+        List<List<YandexSpellerAnswer>> responsesWithOptions = getYandexSpellerAnswers(with()
+                .text(WORD_WITH_URL.wrongVer(), WORD_WITH_CAPITALIZATION.wrongVer())
+                .options(option)
+                .language(EN)
+                .callApi());
+
+        //2 assertions below will pass, but not because of introducing "Option", but because the response is always empty
+        assertTrue(responsesWithOptions.get(0).isEmpty());
+        assertTrue(responsesWithOptions.get(1).isEmpty());
+    }
+
+    @Test
+    public void checkRepeatWordError() {
+        List<List<YandexSpellerAnswer>> responsesWithOptions = getYandexSpellerAnswers(with()
+                .text(WORD_WITH_REPEATS.wrongVer())
+                .options(FIND_REPEAT_WORDS.code)
+                .language(EN)
+                .callApi());
+
+        //Will fail due to the Speller does not handle "Options"
+        assertThat(responsesWithOptions.get(0).get(1).code, equalTo(ERROR_REPEAT_WORD.errorCode));
+    }
+
+    @Test
+    public void checkCapitalizationError() {
+        List<List<YandexSpellerAnswer>> responsesWithOptions = getYandexSpellerAnswers(with()
+                .text(WORD_WITH_CAPITALIZATION.wrongVer())
+                .language(EN)
+                .callApi());
+
+        //Will fail due to the Speller does not handle "Options"
+        assertThat(responsesWithOptions.get(0).get(1).code, equalTo(ERROR_CAPITALIZATION.errorCode));
+    }
+
+    @Test
+    public void checkResponseCodeInCaseOfWrongRequest() {
         RestAssured
                 .given()
-                .queryParam("text", "requisitee")
-                .params("lang", "en", "CustomParameter", "valueOfParam")
-                .accept(ContentType.JSON)
-                .auth().basic("abcName", "abcPassword")
-                .header("custom header1", "header1.value")
-                .and()
-                .body("some body payroll")
+                .param(PARAM_LANG, INSISTING_LANGUAGE.langCode())
                 .log().everything()
                 .when()
                 .get(YANDEX_SPELLER_API_URI)
-                .prettyPeek()
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
+    }
+
+    @Test
+    public void checkErrorAttributesInResponse() {
+        List<List<YandexSpellerAnswer>> response = getYandexSpellerAnswers(with()
+                .text(BROTHER.corrVer(), STRING_WITH_ERRORS.wrongVer())
+                .language(EN)
+                .callApi());
+
+        assertThat(response.get(1).get(0).code, equalTo(ERROR_UNKNOWN_WORD.errorCode));
+        assertThat(response.get(1).get(0).pos, equalTo(STRING_WITH_ERRORS.wrongVer().indexOf("t")));
+        assertThat(response.get(1).get(0).row, equalTo(0));
+        assertThat(response.get(1).get(0).col, equalTo(0));
+        assertThat(response.get(1).get(0).len, equalTo(response.get(1).get(0).word.length()));
+
+        assertThat(response.get(1).get(1).code, equalTo(ERROR_UNKNOWN_WORD.errorCode));
+        assertThat(response.get(1).get(1).pos, equalTo(STRING_WITH_ERRORS.wrongVer().indexOf("f")));
+        assertThat(response.get(1).get(1).row, equalTo(1));
+        assertThat(response.get(1).get(1).col, equalTo(1));
+        assertThat(response.get(1).get(1).len, equalTo(response.get(1).get(1).word.length()));
+    }
+
+    @Test
+    public void checkPostRequestHandling() {
+        RestAssured
+                .given()
+                .params(PARAM_LANG, Language.RU, PARAM_TEXT, CITY.wrongVer())
+                .log().everything()
+                .when()
+                .post(YANDEX_SPELLER_API_URI)
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .body(Matchers.allOf(
-                        Matchers.stringContainsInOrder(Arrays.asList("requisitee", "requisite")),
-                        Matchers.containsString("\"code\":1")))
-                .contentType(ContentType.JSON)
-                .time(lessThan(20000L)); // Milliseconds
+                .body(Matchers.containsString(CITY.corrVer()));
+        //Assertion will fail due to not handling russian language
     }
-
-    // different http methods calls
-    @Test
-    public void spellerApiCallsWithDifferentMethods() {
-        //GET
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log().everything()
-                .get(YANDEX_SPELLER_API_URI)
-                .prettyPeek();
-        System.out.println(repeat("=", 100));
-
-        //POST
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log().everything()
-                .post(YANDEX_SPELLER_API_URI)
-                .prettyPeek();
-        System.out.println(repeat("=", 100));
-
-        //HEAD
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log().everything()
-                .head(YANDEX_SPELLER_API_URI)
-                .prettyPeek();
-        System.out.println(repeat("=", 100));
-
-        //OPTIONS
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log().everything()
-                .options(YANDEX_SPELLER_API_URI)
-                .prettyPeek();
-        System.out.println(repeat("=", 100));
-
-        //PUT
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log().everything()
-                .put(YANDEX_SPELLER_API_URI)
-                .prettyPeek();
-        System.out.println(repeat("=", 100));
-
-        //PATCH
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log()
-                .everything()
-                .patch(YANDEX_SPELLER_API_URI)
-                .prettyPeek();
-        System.out.println(repeat("=", 100));
-
-        //DELETE
-        RestAssured
-                .given()
-                .param(PARAM_TEXT, BROTHER.wrongVer())
-                .log()
-                .everything()
-                .delete(YANDEX_SPELLER_API_URI).prettyPeek()
-                .then()
-                .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED)
-                .statusLine("HTTP/1.1 405 Method not allowed");
-    }
-
-
-    // use base request and response specifications to form request and validate response.
-    @Test
-    public void useBaseRequestAndResponseSpecifications() {
-        RestAssured
-                .given(YandexSpellerApi.baseRequestConfiguration())
-                .param(PARAM_TEXT, BROTHER.wrongVer(), MOTHER.wrongVer())
-                .get().prettyPeek()
-                .then().specification(YandexSpellerApi.successResponse());
-    }
-
-    @Test
-    public void reachBuilderUsage() {
-        with()
-                .language(Language.EN)
-                .options("5")
-                .text(BROTHER.wrongVer(), MOTHER.wrongVer())
-                .callApi()
-                .then().specification(YandexSpellerApi.successResponse());
-    }
-
-
-    //validate an object we've got in API response
-    @Test
-    public void validateSpellerAnswerAsAnObject() {
-//        List<YandexSpellerAnswer> answers =
-//                getYandexSpellerAnswers(
-//                        with().text("motherr fatherr," + BROTHER.wrongVer()).callApi());
-//        assertThat("expected number of answers is wrong.", answers.size(), equalTo(3));
-//        assertThat(answers.get(0).word, equalTo("motherr"));
-//        assertThat(answers.get(1).word, equalTo("fatherr"));
-//        assertThat(answers.get(0).s.get(0), equalTo("mother"));
-//        assertThat(answers.get(1).s.get(0), equalTo("father"));
-//        assertThat(answers.get(2).s.get(0), equalTo(BROTHER.wrongVer()));
-    }
-
-
-//    @Test
-//    public void optionsValueIgnoreDigits() {
-//        List<YandexSpellerAnswer> answers =
-//                YandexSpellerApi.getYandexSpellerAnswers(
-//                        YandexSpellerApi.with().
-//                                text(WORD_WITH_LEADING_DIGITS)
-//                                .options("2")
-//                                .callApi());
-//        assertThat("expected number of answers is wrong.", answers.size(), equalTo(0));
-//    }
-//
-//    @Test
-//    public void optionsIgnoreWrongCapital() {
-//        List<YandexSpellerAnswer> answers =
-//                YandexSpellerApi.getYandexSpellerAnswers(
-//                        YandexSpellerApi.with().
-//                                text(WORD_WITH_WRONG_CAPITAL)
-//                                .options("512")
-//                                .callApi());
-//        assertThat("expected number of answers is wrong.", answers.size(), equalTo(0));
-//    }
 }

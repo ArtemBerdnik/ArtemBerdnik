@@ -71,7 +71,6 @@ public class YandexSpellerApi {
 
     //get ready Speller answers list form api response
     public static List<List<YandexSpellerAnswer>> getYandexSpellerAnswers(Response response){
-//        return new Gson().fromJson( response.asString().trim(), new TypeToken<List<YandexSpellerAnswer>>() {}.getType());
         Type collectionType = new TypeToken<Collection<List<YandexSpellerAnswer>>>(){}.getType();
         return new Gson().fromJson(response.asString().trim(), collectionType);
     }

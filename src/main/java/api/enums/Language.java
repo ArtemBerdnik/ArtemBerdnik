@@ -3,7 +3,8 @@ package api.enums;
 public enum Language {
     RU("ru"),
     UK("uk"),
-    EN("en");
+    EN("en"),
+    INSISTING_LANGUAGE("IL");
     private String languageCode;
     public String langCode(){return languageCode;}
 

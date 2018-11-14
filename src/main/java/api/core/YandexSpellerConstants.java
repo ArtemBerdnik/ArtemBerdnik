@@ -10,6 +10,5 @@ public class YandexSpellerConstants {
     public static final String PARAM_LANG = "lang";
     public static final String WRONG_WORD_UK = "питаня";
     public static final String WORD_WITH_WRONG_CAPITAL = "moscow";
-    public static final String WORD_WITH_LEADING_DIGITS = "11" + TestWordsEng.BROTHER.corrVer();
     public static final String QUOTES = "\"";
 }
