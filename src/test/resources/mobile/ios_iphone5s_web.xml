@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Web Test Suite on iOS device from SPb farm" verbose="1">
+<suite name="Web test for iOS" verbose="1">
     <parameter name="pathToConfig" value="src/test/resources/mobile/deviceConfigs/ios_iphone5s_web_config.json"/>
     <test name="Simple Web Test">
 
