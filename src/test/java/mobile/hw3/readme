@@ -1,0 +1,36 @@
+1. Add support of appPackage and appActivity parameters for Android devices (reading from a .properties file and then
+setting in the DesiredCapabilities). Locally installed Appium DT has no need in these parameters, but for Appium server
+of Minsk Mobile Farm it’s mandatory.
+Done. Required fields and initialization for those are added to Driver.class.
+Driver URL was pointed to the mobileFarm url with a personal token.
+
+a.	Or try to use autoLaunch capability with app as before. Does this approach work?
+I wasn't able to make it works. Every time I'm getting:
+{
+"status":13,
+"value":{
+      "message":"An unknown server-side error occurred while processing the command.
+      Original error: The desired capabilities must  include either an app, appPackage or browserName"
+   },
+   "sessionId":null
+}
+
+
+2. Change settings to run web test on a certain iOS device on Mobile Test Farm. Run test with your changes. Did test pass?
+Done. The test passed.
+clean test -DsuiteXmlFile=mobile/ios_iphone5s_web.xml
+
+
+3.Change settings to run native test on a certain/random Android device on Mobile Test Farm. Run test with your changes. Did test pass?
+Done. Test passed.
+clean test -DsuiteXmlFile=mobile/android_nexus5_native.xml
+
+
+4.What’s wrong with our code? How to fix/improve it? Implement your suggestions.
+a. It's not that easy to modify .properties every time we run test for various set of devices, so I've replaced them
+with .json files that store set of capabilities specified for the particular device.
+
+b. I've added .xml with configs (for both android and ios devices) to run tests using testNG functionality
+
+c. It's a good practice to get rid of hardcoded (green) values in our code, so I've added couple enums that store
+names of browsers, some constants, texts for errors
