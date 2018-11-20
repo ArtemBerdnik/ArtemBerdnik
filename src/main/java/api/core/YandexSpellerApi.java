@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 import static api.core.YandexSpellerConstants.*;
-import static org.hamcrest.Matchers.hasValue;
 import static org.hamcrest.Matchers.lessThan;
 
 public class YandexSpellerApi {
@@ -28,7 +27,7 @@ public class YandexSpellerApi {
     }
     private HashMap<String,String> params = new HashMap<>();
     private HashMap<String, List<String>> texts = new HashMap<>();
-    private List<String> values = new ArrayList<>();
+    public static List<List<YandexSpellerAnswer>> responses;
 
     public static class ApiBuilder {
         YandexSpellerApi spellerApi;
@@ -38,8 +37,7 @@ public class YandexSpellerApi {
         }
 
         public ApiBuilder text(String ... texts) {
-            spellerApi.values.addAll(Arrays.asList(texts));
-            spellerApi.texts.put(PARAM_TEXT, spellerApi.values);
+            spellerApi.texts.put(PARAM_TEXT, Arrays.asList(texts));
             return this;
         }
 

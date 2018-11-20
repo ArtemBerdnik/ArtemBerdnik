@@ -1,7 +1,5 @@
 package api.core;
 
-import api.enums.TestWordsEng;
-
 public class YandexSpellerConstants {
     //useful constants for API under test
     public static final String YANDEX_SPELLER_API_URI = "https://speller.yandex.net/services/spellservice.json/checkTexts";
